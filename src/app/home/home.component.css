@@ -1,0 +1,45 @@
+.background-home {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom:0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  /*background-color: #FFD700;*/
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+  width: 375px;
+}
+
+:host ::ng-deep .mat-form-field-suffix .mat-icon {
+  cursor: pointer;
+}
+
+:host ::ng-deep .mat-raised-button {
+  background: #25365c;
+  color: white;
+  width: 200px;
+}
+
+.div-center {
+  text-align: center;
+}
+
+.div-center-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.img-style {
+  margin-left: 215px;
+  height: 230px;
+  margin-top: -185px;
+}

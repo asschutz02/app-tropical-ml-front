@@ -1,0 +1,25 @@
+<form [formGroup]="form">
+
+  <div class="background-home">
+    <app-header></app-header>
+
+
+    <div class="div-center">
+        <img class="img-style"
+             src='../../assets/img/logo-topicalimport.png'
+             alt="logo-tropical"
+             loading="lazy">
+      </div>
+
+      <div class="div-center-input">
+        <mat-form-field appearance="outline">
+          <mat-label>Pesquise</mat-label>
+          <input matInput placeholder="Digite o produto que deseja pesquisar...">
+          <mat-icon matSuffix (click)="click()">search</mat-icon>
+        </mat-form-field>
+      </div>
+    <div class="example-button-row">
+      <button (click)="buscarProduto()" mat-raised-button>Buscar</button>
+    </div>
+  </div>
+</form>

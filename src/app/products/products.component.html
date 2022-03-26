@@ -1,0 +1,116 @@
+<form [formGroup]="form">
+
+  <div class="container">
+
+    <div class="div-form">
+      <span class="span-title-style">Cadastro de produtos</span>
+
+      <span class="span-style">Nome:</span>
+      <input class="input-style" formControlName="name" placeholder="Nome do produto">
+
+      <br>
+
+      <span class="span-style">Preço (PMS):</span>
+      <input class="input-style margin-last" formControlName="price" placeholder="Preço do produto">
+
+      <div class="div-center">
+        <div (click)="cadastrarProduto()" class="div-button">Cadastrar</div>
+      </div>
+
+    </div>
+
+    <div class="div-right">
+      <div class="div-between-secondary">
+        <div>
+          <span class="span-title-style">Todos os produtos cadastrados</span>
+        </div>
+
+        <div>
+          <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Encontre pelo nome</mat-label>
+              <input type="text" (blur)="filterList()" matInput formControlName="filter">
+            </mat-form-field>
+          </form>
+        </div>
+
+      </div>
+
+      <div *ngIf="filteredList.length === 0; else filterTemplate">
+        <div class="div-all" *ngFor="let produto of products">
+
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ produto.name }}
+                </mat-panel-title>
+                <mat-panel-description>
+                 R$ {{ produto.price | number: "0.2-2": "pt-BR" }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="div-between">
+                <div class="column">
+                  <div>
+                    <input class="input-style margin-last" formControlName="editName" placeholder="Editar nome">
+                  </div>
+                  <div>
+                    <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
+                  </div>
+                </div>
+
+                <div class="pointer">
+                  <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+                </div>
+              </div>
+
+              <div class="div-left">
+                <div (click)="editarProduto(produto.name)" class="div-button">Editar</div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #filterTemplate>
+  <div class="div-all" *ngFor="let produto of filteredList">
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ produto.name }}
+          </mat-panel-title>
+          <mat-panel-description>
+            R$ {{ produto.price | number: "0.2-2": "pt-BR"}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div class="div-between">
+          <div class="column">
+            <div>
+              <input class="input-style margin-last" formControlName="editName" placeholder="Editar produto">
+            </div>
+            <div>
+              <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
+            </div>
+          </div>
+
+          <div class="pointer">
+            <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+          </div>
+        </div>
+
+        <div class="div-left">
+          <div (click)="editarProduto(produto.name)" class="div-button">Editar</div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</ng-template>

@@ -1,0 +1,102 @@
+<form [formGroup]="form">
+
+  <div class="container">
+
+    <div class="div-form">
+      <span class="span-title-style">Cadastro de vendedores</span>
+
+      <span class="span-style">Nome:</span>
+      <input class="input-style" formControlName="name" placeholder="Nome do vendedor">
+
+      <br>
+
+      <div class="div-center">
+        <div (click)="cadastrarVendedor()" class="div-button">Cadastrar</div>
+      </div>
+
+    </div>
+
+    <div class="div-right">
+      <div class="div-between-secondary">
+        <div>
+          <span class="span-title-style">Todos os vendedores cadastrados</span>
+        </div>
+
+        <div>
+          <form class="example-form">
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Encontre pelo nome</mat-label>
+              <input type="text" (blur)="filterList()" matInput formControlName="filter">
+            </mat-form-field>
+          </form>
+        </div>
+
+      </div>
+
+      <div *ngIf="filteredList.length === 0; else filterTemplate">
+        <div class="div-all" *ngFor="let vendedor of sellers">
+
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ vendedor.name }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div class="div-between">
+                <div class="column">
+                  <div>
+                    <input formControlName="editName" class="input-style margin-last" placeholder="Editar nome">
+                  </div>
+                </div>
+
+                <div class="pointer">
+                  <mat-icon (click)="deleteVendedor(vendedor.name)" matSuffix>delete</mat-icon>
+                </div>
+              </div>
+
+              <div class="div-left">
+                <div (click)="editarVendedor(vendedor.name)" class="div-button">Editar</div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<ng-template #filterTemplate>
+  <div class="div-all" *ngFor="let vendedor of filteredList">
+
+    <mat-accordion>
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ vendedor.name }}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="div-between">
+          <div class="column">
+            <div>
+              <input formControlName="editName" class="input-style margin-last" placeholder="Editar nome">
+            </div>
+          </div>
+
+          <div class="pointer">
+            <mat-icon (click)="deleteVendedor(vendedor.name)" matSuffix>delete</mat-icon>
+          </div>
+        </div>
+
+        <div class="div-left">
+          <div (click)="editarVendedor(vendedor.name)" class="div-button">Editar</div>
+        </div>
+
+      </mat-expansion-panel>
+    </mat-accordion>
+  </div>
+</ng-template>
+

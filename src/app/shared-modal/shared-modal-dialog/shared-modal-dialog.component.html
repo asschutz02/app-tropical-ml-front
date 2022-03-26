@@ -1,0 +1,19 @@
+<div *ngIf="modalState$ | async as modalState" class="scroll-modal">
+  <div class="header">
+    <div class="title-left">
+      <h2> {{ modalState.title }} </h2>
+    </div>
+    <div class="title">
+      <button mat-icon-button
+              (click)="close()"
+              disableRipple="true">
+        <mat-icon>close</mat-icon>
+      </button>
+
+    </div>
+
+  </div>
+  <div *ngIf="modalState.enable" class="modal-min-size">
+    <ng-template appModalDirective></ng-template>
+  </div>
+</div>
