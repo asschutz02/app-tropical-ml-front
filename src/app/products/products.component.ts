@@ -77,20 +77,20 @@ export class ProductsComponent implements OnInit, OnDestroy {
         if(priceString.includes(',')) {
           let price = priceString.replace(',', '.');
           this.subscription.push(
-            this.service.editProduct(nameEdit!.toLowerCase(),this.formEdit.get('editName')?.value.toLowerCase(), price).subscribe(() => {
+            this.service.editProduct(nameEdit?.toLowerCase(),this.formEdit.get('editName')?.value?.toLowerCase(), price).subscribe(() => {
               this.findAll();
             }));
           this.formEdit.reset();
         } else {
-          this.subscription.push(this.service.editProduct(nameEdit!.toLowerCase(),
-            this.formEdit.get('editName')?.value.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
+          this.subscription.push(this.service.editProduct(nameEdit?.toLowerCase(),
+            this.formEdit.get('editName')?.value?.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
             this.formEdit.reset();
             this.findAll();
           }));
         }
       } else {
-        this.subscription.push(this.service.editProduct(nameEdit!.toLowerCase(),
-          this.formEdit.get('editName')?.value.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
+        this.subscription.push(this.service.editProduct(nameEdit?.toLowerCase(),
+          this.formEdit.get('editName')?.value?.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
           this.formEdit.reset();
           this.findAll();
         }));
