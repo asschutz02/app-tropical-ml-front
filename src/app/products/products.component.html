@@ -1,7 +1,5 @@
 <form [formGroup]="form">
-
   <div class="container">
-
     <div class="div-form">
       <span class="span-title-style">Cadastro de produtos</span>
 
@@ -11,10 +9,10 @@
       <br>
 
       <span class="span-style">Preço (PMS):</span>
-      <input class="input-style margin-last" formControlName="price" placeholder="Preço do produto">
+      <input class="input-style margin-last" formControlName="price" placeholder="Preço do produto (somente números)">
 
       <div class="div-center">
-        <div (click)="cadastrarProduto()" class="div-button">Cadastrar</div>
+        <div (click)="cadastrarProduto()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
       </div>
 
     </div>
@@ -44,29 +42,39 @@
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ produto.name }}
+                  {{ produto.name | titlecase }}
                 </mat-panel-title>
                 <mat-panel-description>
                  R$ {{ produto.price | number: "0.2-2": "pt-BR" }}
                 </mat-panel-description>
               </mat-expansion-panel-header>
               <div class="div-between">
-                <div class="column">
-                  <div>
-                    <input class="input-style margin-last" formControlName="editName" placeholder="Editar nome">
+
+                  <div class="column">
+                    <form [formGroup]="formEdit">
+                    <span class="span-edit">Atualizar informações: </span>
+
+                    <div>
+                      <input class="input-style margin-last" formControlName="editName" placeholder="Editar nome">
+                    </div>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
+                    </div>
+                    </form>
                   </div>
-                  <div>
-                    <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
-                  </div>
-                </div>
 
                 <div class="pointer">
-                  <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+                  <div>
+                    <span class="span-edit">Deletar informações: </span>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+                  </div>
                 </div>
               </div>
 
               <div class="div-left">
-                <div (click)="editarProduto(produto.name)" class="div-button">Editar</div>
+                <div (click)="editarProduto(produto.name)" [className]="validateEditForm()">Editar</div>
               </div>
 
             </mat-expansion-panel>
@@ -85,7 +93,7 @@
                            (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{ produto.name }}
+            {{ produto.name | titlecase }}
           </mat-panel-title>
           <mat-panel-description>
             R$ {{ produto.price | number: "0.2-2": "pt-BR"}}
@@ -93,21 +101,30 @@
         </mat-expansion-panel-header>
         <div class="div-between">
           <div class="column">
-            <div>
-              <input class="input-style margin-last" formControlName="editName" placeholder="Editar produto">
-            </div>
-            <div>
-              <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
-            </div>
+            <form [formGroup]="formEdit">
+              <span class="span-edit">Atualizar informações: </span>
+
+              <div>
+                <input class="input-style margin-last" formControlName="editName" placeholder="Editar nome">
+              </div>
+              <div>
+                <input class="input-style margin-last" formControlName="editPrice" placeholder="Editar preço">
+              </div>
+            </form>
           </div>
 
           <div class="pointer">
-            <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+            <div>
+              <span class="span-edit">Deletar informações: </span>
+            </div>
+            <div>
+              <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+            </div>
           </div>
         </div>
 
         <div class="div-left">
-          <div (click)="editarProduto(produto.name)" class="div-button">Editar</div>
+          <div (click)="editarProduto(produto.name)" [className]="validateEditForm()">Editar</div>
         </div>
 
       </mat-expansion-panel>

@@ -16,14 +16,14 @@ export class SellerService {
 
   public createSeller(name: string): Observable<void> {
     const request = {
-      name
+      name: name.toLowerCase()
     };
     return this.http.post<void>(`http://localhost:9096/tropical/sellers`, request);
   }
 
   public editSeller(nameEdit: string | undefined, name: string): Observable<void>{
     const request = {
-      name
+      name: name.toLowerCase()
     };
     return this.http.put<void>(`http://localhost:9096/tropical/sellers/${nameEdit}`, request);
   }

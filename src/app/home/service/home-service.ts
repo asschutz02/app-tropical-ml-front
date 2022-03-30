@@ -5,11 +5,11 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: "root",
 })
-export class HeaderService {
+export class HomeService {
 
   constructor(private http: HttpClient) {}
 
-  public gerarRelatorio(): Observable<void> {
-    return this.http.get<void>(`http://localhost:9096/tropical/relatorio`);
+  public buscarProduto(name: string, price: number): Observable<void>{
+    return this.http.get<void>(`http://localhost:9096/tropical/search/${name}/price/${price}`)
   }
 }

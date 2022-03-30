@@ -33,5 +33,4 @@ export class ProductService {
   public deleteProduct(name: string | undefined): Observable<void> {
     return this.http.delete<void>(`http://localhost:9096/tropical/products/${name}`);
   }
-
 }

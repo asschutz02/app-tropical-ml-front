@@ -20,10 +20,13 @@ export class SellersComponent implements OnInit, OnDestroy {
   filtro?: string;
   panelOpenState = false;
 
+  formEdit = this.fb.group({
+    editName: new FormControl(null,[Validators.required])
+  });
+
   form = this.fb.group({
-    filter: new FormControl(null,[Validators.required]),
+    filter: new FormControl(null,null),
     name: new FormControl(null,[Validators.required]),
-    editName: new FormControl(null,[Validators.required]),
   });
 
   constructor(private service: SellerService, private fb: FormBuilder) { }
@@ -40,7 +43,7 @@ export class SellersComponent implements OnInit, OnDestroy {
 
   cadastrarVendedor(): void {
     if(this.form.get('name')?.value !== null){
-      this.subscription.push(this.service.createSeller(this.form.get('name')?.value).subscribe(() => {
+      this.subscription.push(this.service.createSeller(this.form.get('name')?.value.toLowerCase()).subscribe(() => {
         this.form.get('name')?.reset();
         this.findAll();
       }));
@@ -48,9 +51,9 @@ export class SellersComponent implements OnInit, OnDestroy {
   }
 
   editarVendedor(nameEdit: string | undefined): void {
-    if(this.form.get('editName')?.value !== null){
-      this.subscription.push(this.service.editSeller(nameEdit, this.form.get('editName')?.value).subscribe(() => {
-        this.form.get('editName')?.reset();
+    if(this.formEdit.get('editName')?.value !== null){
+      this.subscription.push(this.service.editSeller(nameEdit?.toLowerCase(), this.formEdit.get('editName')?.value.toLowerCase()).subscribe(() => {
+        this.formEdit.get('editName')?.reset();
         this.findAll();
       }));
     }

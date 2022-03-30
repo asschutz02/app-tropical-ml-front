@@ -1,7 +1,5 @@
 <form [formGroup]="form">
-
   <div class="container">
-
     <div class="div-form">
       <span class="span-title-style">Cadastro de nicknames</span>
 
@@ -13,8 +11,8 @@
       <span class="span-style">Vendedor:</span>
       <input class="input-style margin-last" formControlName="vendedor" placeholder="Vendedor Tropical">
 
-      <div (click)="cadastrarNickname()" class="div-center">
-        <div class="div-button">Cadastrar</div>
+      <div class="div-center">
+        <div (click)="cadastrarNickname()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
       </div>
 
     </div>
@@ -44,29 +42,37 @@
                                    (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{ nick.nickname }}
+                    {{ nick.nickname | titlecase }}
                   </mat-panel-title>
                   <mat-panel-description>
-                    {{ nick.customerBy }}
+                    {{ nick.customerBy | titlecase }}
                   </mat-panel-description>
                 </mat-expansion-panel-header>
                 <div class="div-between">
                   <div class="column">
-                    <div>
-                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
-                    </div>
-                    <div>
-                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
-                    </div>
+                    <form [formGroup]="formEdit">
+                      <span class="span-edit">Atualizar informações: </span>
+                      <div>
+                        <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      </div>
+                      <div>
+                        <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                      </div>
+                    </form>
                   </div>
 
                   <div class="pointer">
-                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                    <div>
+                      <span class="span-edit">Deletar informações: </span>
+                    </div>
+                    <div>
+                      <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                    </div>
                   </div>
                 </div>
 
                 <div class="div-left">
-                  <div (click)="editarNickname(nick.nickname)" class="div-button">Editar</div>
+                  <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
                 </div>
 
               </mat-expansion-panel>
@@ -79,35 +85,42 @@
 
 <ng-template #filterTemplate>
   <div class="div-all" *ngFor="let nick of filteredList">
-
     <mat-accordion>
       <mat-expansion-panel (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{ nick.nickname }}
+            {{ nick.nickname | titlecase }}
           </mat-panel-title>
           <mat-panel-description>
-            {{ nick.customerBy }}
+            {{ nick.customerBy | titlecase }}
           </mat-panel-description>
         </mat-expansion-panel-header>
         <div class="div-between">
           <div class="column">
-            <div>
-              <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
-            </div>
-            <div>
-              <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
-            </div>
+            <form [formGroup]="formEdit">
+              <span class="span-edit">Atualizar informações: </span>
+              <div>
+                <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+              </div>
+              <div>
+                <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+              </div>
+            </form>
           </div>
 
           <div class="pointer">
-            <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+            <div>
+              <span class="span-edit">Deletar informações: </span>
+            </div>
+            <div>
+              <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+            </div>
           </div>
         </div>
 
         <div class="div-left">
-          <div (click)="editarNickname(nick.nickname)" class="div-button">Editar</div>
+          <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
         </div>
 
       </mat-expansion-panel>

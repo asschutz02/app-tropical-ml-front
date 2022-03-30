@@ -33,5 +33,4 @@ export class NicknameService {
   public deleteNickname(nickname: string | undefined): Observable<void> {
     return this.http.delete<void>(`http://localhost:9096/tropical/nicknames/${nickname}`);
   }
-
 }

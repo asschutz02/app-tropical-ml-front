@@ -24,6 +24,12 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ProductService} from "./products/service/product-service";
 import {SellerService} from "./sellers/service/seller-service";
 import {HeaderService} from "./header/service/header-service";
+import {HomeService} from "./home/service/home-service";
+import {IConfig, NgxMaskModule} from "ngx-mask";
+
+const maskConfig: Partial<IConfig> = {
+  validation: false,
+};
 
 @NgModule({
   declarations: [
@@ -53,12 +59,14 @@ import {HeaderService} from "./header/service/header-service";
         strictActionImmutability: false,
       },
     }),
+    NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     NicknameService,
     ProductService,
     SellerService,
-    HeaderService
+    HeaderService,
+    HomeService
   ],
   bootstrap: [AppComponent]
 })

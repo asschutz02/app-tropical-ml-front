@@ -1,9 +1,6 @@
 <form [formGroup]="form">
-
   <div class="background-home">
-    <app-header></app-header>
-
-
+    <app-header (success)="successReceiver($event)"></app-header>
     <div class="div-center">
         <img class="img-style"
              src='../../assets/img/logo-topicalimport.png'
@@ -12,14 +9,30 @@
       </div>
 
       <div class="div-center-input">
-        <mat-form-field appearance="outline">
-          <mat-label>Pesquise</mat-label>
-          <input matInput placeholder="Digite o produto que deseja pesquisar...">
-          <mat-icon matSuffix (click)="click()">search</mat-icon>
-        </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Nome do produto</mat-label>
+            <input matInput formControlName="name" placeholder="Digite o nome do produto...">
+            <mat-icon matSuffix>category</mat-icon>
+          </mat-form-field>
+
+        <div class="div-separator"></div>
+        <div class="div-money">
+          <span class="span-cifrao">R$</span>
+        </div>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Preço do produto</mat-label>
+            <input matInput maxlength="9" formControlName="price" placeholder="Digite o PMS do produto...">
+            <mat-icon matSuffix>monetization_on</mat-icon>
+          </mat-form-field>
+
       </div>
-    <div class="example-button-row">
-      <button (click)="buscarProduto()" mat-raised-button>Buscar</button>
+    <div>
+      <button [disabled]="!form.valid" (click)="buscarProduto()" mat-raised-button>Buscar</button>
+    </div>
+
+    <div *ngIf="success" class="div-success">
+      <span class="span-success">Aguarde, em instantes o relatório será enviado para vendas@tropicalimport.com.br</span>
     </div>
   </div>
 </form>

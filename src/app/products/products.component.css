@@ -66,8 +66,22 @@
   flex-direction: column;
 }
 
+.opacity {
+  opacity: 0.5;
+  cursor: auto !important;
+}
+
 .pointer {
+  margin-left: 40px;
   cursor: pointer;
+  display: flex;
+  flex: auto;
+  justify-content: space-between;
+}
+
+.span-edit {
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .div-left{

@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
 import { Store } from '@ngrx/store';
 import {SharedModalDialogComponent} from "../shared-modal/shared-modal-dialog/shared-modal-dialog.component";
@@ -19,6 +19,9 @@ import {Subscription} from "rxjs";
 export class HeaderComponent implements OnInit, OnDestroy {
 
   subscription: Subscription[] = [];
+
+  @Output()
+  public success = new EventEmitter<boolean>();
 
   constructor(private store: Store<AppState>, private dialog: MatDialog, private service: HeaderService) { }
 
@@ -50,11 +53,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   protected openDialog(): void {
-    this.dialog.open(SharedModalDialogComponent, {});
+    this.dialog.open(SharedModalDialogComponent, { disableClose: true });
   }
 
   gerarRelatorio(): void {
-    this.subscription.push(this.service.gerarRelatorio().subscribe());
+    this.success.emit(true);
+    this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
+      this.success.emit(false);
+    }));
   }
 
   ngOnDestroy(): void {

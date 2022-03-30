@@ -12,6 +12,15 @@
   align-items: center;
 }
 
+.div-success {
+  margin-top: 200px;
+}
+
+.span-success {
+  font-family: "Foco", sans-serif;
+  font-size: 18px;
+}
+
 .button-row {
   padding-left: 50px;
 }

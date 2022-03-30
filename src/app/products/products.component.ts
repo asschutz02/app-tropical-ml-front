@@ -22,12 +22,15 @@ export class ProductsComponent implements OnInit, OnDestroy {
   filtro?: string;
   panelOpenState = false;
 
+  formEdit = this.fb.group({
+    editName: new FormControl(null,null),
+    editPrice: new FormControl(null,null)
+  })
+
   form = this.fb.group({
-    filter: new FormControl(null,[Validators.required]),
+    filter: new FormControl(null,null),
     name: new FormControl(null,[Validators.required]),
     price: new FormControl(null,[Validators.required]),
-    editName: new FormControl(null,[Validators.required]),
-    editPrice: new FormControl(null,[Validators.required]),
   });
 
   constructor(private service: ProductService, private fb: FormBuilder) { }
@@ -49,23 +52,49 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   cadastrarProduto(): void {
     if(this.form.get('name')?.value !== null && this.form.get('price')?.value !== null){
-      this.subscription.push(this.service.createProduct
-      (this.form.get('name')?.value, this.form.get('price')?.value).subscribe(() => {
-        this.form.get('name')?.reset();
-        this.form.get('price')?.reset();
-        this.findAll();
-      }));
+      const priceString = this.form.get('price')?.value;
+      if(priceString.includes(',')) {
+        let price = priceString.replace(',', '.');
+        this.subscription.push(
+          this.service.createProduct(this.form.get('name')?.value.toLowerCase(), price).subscribe(() => {
+            this.findAll();
+          }));
+        this.form.reset();
+      } else {
+        this.subscription.push(this.service.createProduct
+        (this.form.get('name')?.value.toLowerCase(), this.form.get('price')?.value).subscribe(() => {
+          this.findAll();
+          this.form.reset();
+        }));
+      }
     }
   }
 
   editarProduto(nameEdit: string | undefined): void {
-    if(this.form.get('editName')?.value !== null && this.form.get('editPrice')?.value !== null){
-      this.subscription.push(this.service.editProduct(nameEdit,
-        this.form.get('editName')?.value, this.form.get('editPrice')?.value).subscribe(() => {
-        this.form.get('editName')?.reset();
-        this.form.get('editPrice')?.reset();
-        this.findAll();
-      }));
+    if(this.formEdit.get('editName')?.value !== null || this.formEdit.get('editPrice')?.value !== null){
+      if(this.formEdit.get('editPrice')?.value !== null){
+        const priceString = this.formEdit.get('editPrice')?.value;
+        if(priceString.includes(',')) {
+          let price = priceString.replace(',', '.');
+          this.subscription.push(
+            this.service.editProduct(nameEdit!.toLowerCase(),this.formEdit.get('editName')?.value.toLowerCase(), price).subscribe(() => {
+              this.findAll();
+            }));
+          this.formEdit.reset();
+        } else {
+          this.subscription.push(this.service.editProduct(nameEdit!.toLowerCase(),
+            this.formEdit.get('editName')?.value.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
+            this.formEdit.reset();
+            this.findAll();
+          }));
+        }
+      } else {
+        this.subscription.push(this.service.editProduct(nameEdit!.toLowerCase(),
+          this.formEdit.get('editName')?.value.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
+          this.formEdit.reset();
+          this.findAll();
+        }));
+      }
     }
   }
 
@@ -79,5 +108,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     this.filteredList = this.products.filter(nick => nick.name === this.form.get('filter')?.value);
 
     return this.filteredList;
+  }
+
+  validateEditForm(): string {
+    if(this.formEdit.get('editName')?.value == null && this.formEdit.get('editPrice')?.value == null){
+      return 'div-button opacity';
+    } else {
+      return 'div-button';
+    }
   }
 }
