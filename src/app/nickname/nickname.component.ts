@@ -54,8 +54,8 @@ export class NicknameComponent implements OnInit, OnDestroy {
 
   editarNickname(nicknameEdit: string | undefined): void {
     if(this.formEdit.get('editNickname')?.value !== null || this.formEdit.get('editVendedor')?.value !== null){
-      this.subscription.push(this.service.editNickname(nicknameEdit!.toLowerCase(), this.formEdit.get('editNickname')?.value.toLowerCase(),
-        this.formEdit.get('editVendedor')?.value.toLowerCase()).subscribe(() => {
+      this.subscription.push(this.service.editNickname(nicknameEdit?.toLowerCase(), this.formEdit.get('editNickname')?.value?.toLowerCase(),
+        this.formEdit.get('editVendedor')?.value?.toLowerCase()).subscribe(() => {
         this.formEdit.reset();
         this.findAll();
       }));
