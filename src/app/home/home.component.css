@@ -32,13 +32,58 @@
   width: 150%;
 }
 
-.div-success {
+.div-loading {
   margin-top: 30px;
 }
 
 .span-success {
   font-family: "Foco", sans-serif;
   font-size: 18px;
+}
+
+.span-font {
+  font-size: 20px;
+}
+
+.div-pointer {
+  cursor: pointer;
+}
+
+.span-white {
+  color: white;
+  font-weight: 300;
+}
+
+.div-success {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 25px;
+  align-items: center;
+  background: green;
+  width: 280px;
+  margin-top: 30px;
+  height: 40px;
+  border-radius: 2px
+}
+
+.width {
+  width: 345px !important;
+}
+
+.div-error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 25px;
+  align-items: center;
+  background: red;
+  width: 280px;
+  margin-top: 30px;
+  height: 40px;
+  border-radius: 2px
 }
 
 .div-money {

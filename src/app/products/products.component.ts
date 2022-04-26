@@ -14,6 +14,10 @@ import {Subscription} from "rxjs";
 })
 export class ProductsComponent implements OnInit, OnDestroy {
 
+  loading = false;
+  success = false;
+  error = false;
+
   subscription: Subscription[] = [];
 
   products: ProductModel[] = [];
@@ -98,7 +102,16 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   gerarRelatorio(): void {
-    this.subscription.push(this.service.gerarRelatorio().subscribe());
+    this.loading = true;
+    this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
+        this.success = true;
+        this.loading = false;
+      },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.error = true;
+      }));
   }
 
   deleteProduto(name: string | undefined): void {
@@ -119,5 +132,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     } else {
       return 'div-button';
     }
+  }
+
+  closeSuccess(): void {
+    this.success = false;
+  }
+
+  closeError(): void {
+    this.error = false;
   }
 }

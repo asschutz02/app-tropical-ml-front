@@ -10,9 +10,9 @@ import {HomeService} from "./service/home-service";
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  priceInput?: number;
-
+  loading = false;
   success = false;
+  error = false;
 
   subscription: Subscription[] = [];
 
@@ -27,28 +27,48 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   successReceiver(event: boolean) {
-    this.success = event;
+    this.loading = event;
   }
 
   buscarProduto(): void {
-    this.success = true;
+    this.loading = true;
     if(this.form.get('name')?.value != null && this.form.get('price')?.value != null){
       const priceString = this.form.get('price')?.value;
       if(priceString.includes(',')) {
         let price = priceString.replace(',', '.');
         this.subscription.push(
           this.service.buscarProduto(this.form.get('name')?.value, price).subscribe(() => {
-            this.success = false;
+            this.success = true;
+            this.loading = false;
+          },
+            error => {
+                console.log(error);
+                this.loading = false;
+                this.error = true;
           }));
         this.form.reset();
        } else {
         this.subscription.push(
           this.service.buscarProduto(this.form.get('name')?.value, this.form.get('price')?.value).subscribe(() => {
-            this.success = false;
+            this.success = true;
+            this.loading = false;
+          },
+            error => {
+              console.log(error);
+              this.loading = false;
+              this.error = true;
           }));
         this.form.reset();
       }
     }
+  }
+
+  closeSuccess(): void {
+    this.success = false;
+  }
+
+  closeError(): void {
+    this.error = false;
   }
 
   ngOnDestroy(): void {

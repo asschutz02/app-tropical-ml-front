@@ -11,6 +11,10 @@ import {Subscription} from "rxjs";
 })
 export class NicknameComponent implements OnInit, OnDestroy {
 
+  loading = false;
+  success = false;
+  error = false;
+
   subscription: Subscription[] = [];
 
   nicknames: NicknameModel[] = [];
@@ -72,7 +76,16 @@ export class NicknameComponent implements OnInit, OnDestroy {
   }
 
   gerarRelatorio(): void {
-    this.subscription.push(this.service.gerarRelatorio().subscribe());
+    this.loading = true;
+    this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
+      this.success = true;
+      this.loading = false;
+    },
+      error => {
+        console.log(error);
+        this.loading = false;
+        this.error = true;
+    }));
   }
 
   deleteNickname(nickname: string | undefined): void {
@@ -125,5 +138,13 @@ export class NicknameComponent implements OnInit, OnDestroy {
     } else {
       return 'div-button';
     }
+  }
+
+  closeSuccess(): void {
+    this.success = false;
+  }
+
+  closeError(): void {
+    this.error = false;
   }
 }

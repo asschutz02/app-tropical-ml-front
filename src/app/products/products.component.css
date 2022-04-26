@@ -142,3 +142,48 @@
   flex-direction: row;
   justify-content: space-between;
 }
+
+.span-font {
+  font-size: 15px;
+}
+
+.div-pointer {
+  cursor: pointer;
+}
+
+.span-white {
+  color: white;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.div-success {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+  background: green;
+  width: 195px;
+  margin-top: 10px;
+  height: 25px;
+  border-radius: 2px
+}
+
+.width {
+  width: 240px !important;
+}
+
+.div-error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 25px;
+  align-items: center;
+  background: red;
+  margin-top: 30px;
+  height: 25px;
+  border-radius: 2px
+}

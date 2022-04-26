@@ -26,6 +26,28 @@
           <div class="div-button-relatorio" (click)="gerarRelatorio()">
             <span class="text-button">Gerar relatório</span>
           </div>
+
+          <div *ngIf="loading" style="margin-top: 10px">
+            <span>Relatório sendo gerado...</span>
+          </div>
+
+          <div *ngIf="success" class="div-success">
+            <div>
+              <span class="span-white">Relatório enviado com sucesso!</span>
+            </div>
+            <div class="div-pointer" (click)="closeSuccess()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
+
+          <div *ngIf="error" class="div-error width">
+            <div>
+              <span class="span-white">Erro! Tente novamente em instantes.</span>
+            </div>
+            <div class="div-pointer" (click)="closeError()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
         </div>
 
         <div>
