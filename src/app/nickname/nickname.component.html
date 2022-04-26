@@ -8,6 +8,9 @@
 
       <br>
 
+      <span class="span-style">Lojista:</span>
+      <input class="input-style margin-last" formControlName="lojista" placeholder="Lojista">
+
       <span class="span-style">Vendedor:</span>
       <input class="input-style margin-last" formControlName="vendedor" placeholder="Vendedor Tropical">
 
@@ -19,22 +22,55 @@
 
     <div class="div-right">
       <div class="div-between-secondary">
-        <div>
-          <span class="span-title-style">Todos os nicknames cadastrados</span>
+        <div class="div-button-title">
+          <div>
+            <span class="span-title-style">Todos os nicknames cadastrados</span>
+          </div>
+          <div class="div-button-relatorio" (click)="gerarRelatorio()">
+            <span class="text-button">Gerar relatório</span>
+          </div>
         </div>
 
-        <div>
-          <form class="example-form">
+        <div class="container-form">
+          <form>
             <mat-form-field class="example-full-width" appearance="fill">
               <mat-label>Encontre pelo nickname</mat-label>
-              <input type="text" (blur)="filterList()" matInput formControlName="filter">
+              <input type="text" (blur)="filterNickList()" matInput formControlName="filterNick">
+
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Encontre pelo lojista</mat-label>
+              <input type="text" (blur)="filterLojistaList()" matInput formControlName="filterLojista">
+
+            </mat-form-field>
+            <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Encontre pelo vendedor</mat-label>
+              <input type="text" (blur)="filterVendedorList()" matInput formControlName="filterVendedor">
+
             </mat-form-field>
           </form>
         </div>
-
       </div>
-
-       <div *ngIf="filteredList.length === 0; else filterTemplate">
+      <div class="container-legend">
+        <div class="sub-container-legend">
+          <div class="container-ex">
+            <span>Ex: </span>
+          </div>
+          <div class="container-padding-right">
+            <span> Nickname </span>
+          </div>
+          <div class="container-padding-right">
+            <span>|</span>
+          </div>
+          <div class="padding-lojista">
+            <span> Lojista </span>
+          </div>
+        </div>
+        <div>
+          <span>Vendedor</span>
+        </div>
+      </div>
+       <div *ngIf="filteredNickList.length === 0 && filteredLojistaList.length === 0 && filteredVendedorList.length === 0">
           <div class="div-all" *ngFor="let nick of nicknames">
 
             <mat-accordion>
@@ -42,7 +78,7 @@
                                    (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{ nick.nickname | titlecase }}
+                    {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ nick.customerBy | titlecase }}
@@ -57,6 +93,9 @@
                       </div>
                       <div>
                         <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                      </div>
+                      <div>
+                        <input class="input-style margin-last" formControlName="editLojista" placeholder="Editar lojista">
                       </div>
                     </form>
                   </div>
@@ -78,52 +117,139 @@
               </mat-expansion-panel>
             </mat-accordion>
           </div>
+      </div>
+      <div *ngIf="filteredNickList.length !== 0">
+        <div class="div-all" *ngFor="let nick of filteredNickList">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ nick.customerBy | titlecase }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="div-between">
+                <div class="column">
+                  <form [formGroup]="formEdit">
+                    <span class="span-edit">Atualizar informações: </span>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                    </div>
+                  </form>
+                </div>
+
+                <div class="pointer">
+                  <div>
+                    <span class="span-edit">Deletar informações: </span>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-left">
+                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
         </div>
+      </div>
+      <div *ngIf="filteredLojistaList.length !== 0">
+        <div class="div-all" *ngFor="let nick of filteredLojistaList">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ nick.customerBy | titlecase }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="div-between">
+                <div class="column">
+                  <form [formGroup]="formEdit">
+                    <span class="span-edit">Atualizar informações: </span>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                    </div>
+                  </form>
+                </div>
+
+                <div class="pointer">
+                  <div>
+                    <span class="span-edit">Deletar informações: </span>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-left">
+                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
+      <div *ngIf="filteredVendedorList.length !== 0">
+        <div class="div-all" *ngFor="let nick of filteredVendedorList">
+          <mat-accordion>
+            <mat-expansion-panel (opened)="panelOpenState = true"
+                                 (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ nick.customerBy | titlecase }}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="div-between">
+                <div class="column">
+                  <form [formGroup]="formEdit">
+                    <span class="span-edit">Atualizar informações: </span>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+                    <div>
+                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                    </div>
+                  </form>
+                </div>
+
+                <div class="pointer">
+                  <div>
+                    <span class="span-edit">Deletar informações: </span>
+                  </div>
+                  <div>
+                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-left">
+                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+            </mat-expansion-panel>
+          </mat-accordion>
+        </div>
+      </div>
     </div>
   </div>
 </form>
-
-<ng-template #filterTemplate>
-  <div class="div-all" *ngFor="let nick of filteredList">
-    <mat-accordion>
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ nick.nickname | titlecase }}
-          </mat-panel-title>
-          <mat-panel-description>
-            {{ nick.customerBy | titlecase }}
-          </mat-panel-description>
-        </mat-expansion-panel-header>
-        <div class="div-between">
-          <div class="column">
-            <form [formGroup]="formEdit">
-              <span class="span-edit">Atualizar informações: </span>
-              <div>
-                <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
-              </div>
-              <div>
-                <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
-              </div>
-            </form>
-          </div>
-
-          <div class="pointer">
-            <div>
-              <span class="span-edit">Deletar informações: </span>
-            </div>
-            <div>
-              <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
-            </div>
-          </div>
-        </div>
-
-        <div class="div-left">
-          <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
-        </div>
-
-      </mat-expansion-panel>
-    </mat-accordion>
-  </div>
-</ng-template>

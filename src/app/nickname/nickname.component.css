@@ -93,6 +93,58 @@
   padding-bottom: 5px;
 }
 
+.div-button-title {
+  display: flex;
+  flex-direction: column;
+}
+
+.container-legend {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding-bottom: 5px;
+}
+
+.sub-container-legend {
+  display: flex;
+  flex-direction: row;
+}
+
+.container-ex {
+  padding-right: 10px;
+}
+
+.padding-lojista {
+  padding-right: 85px;
+}
+
+.container-padding-right {
+  padding-right: 30px;
+}
+
+.div-button-relatorio {
+  margin-top: 30px;
+  padding-top: 10px;
+  background: #FFD700;
+  width: 140px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.container-form {
+  max-width: 200px;
+}
+
+.text-button {
+  color: #25365c;
+  padding-bottom: 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
 .div-shadow {
   height: 40px;
   align-items: center;

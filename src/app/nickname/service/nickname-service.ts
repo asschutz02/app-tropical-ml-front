@@ -14,23 +14,29 @@ export class NicknameService {
     return this.http.get<NicknameModel[]>(`http://localhost:9096/tropical/nicknames/all`);
   }
 
-  public createNickname(nickname: string, customerBy: string): Observable<void> {
+  public createNickname(nickname: string, customerBy: string, lojista: string): Observable<void> {
     const request = {
       nickname,
-      customerBy
+      customerBy,
+      lojista
     };
     return this.http.post<void>(`http://localhost:9096/tropical/nicknames`, request);
   }
 
-  public editNickname(nicknameEdit: string | undefined, nickname: string, customerBy: string): Observable<void>{
+  public editNickname(nicknameEdit: string | undefined, nickname: string, customerBy: string, lojista: string): Observable<void>{
     const request = {
       nickname,
-      customerBy
+      customerBy,
+      lojista
     };
     return this.http.put<void>(`http://localhost:9096/tropical/nicknames/${nicknameEdit}`, request);
   }
 
   public deleteNickname(nickname: string | undefined): Observable<void> {
     return this.http.delete<void>(`http://localhost:9096/tropical/nicknames/${nickname}`);
+  }
+
+  public gerarRelatorio(): Observable<void> {
+    return this.http.get<void>(`http://localhost:9096/tropical/nicknames/email`);
   }
 }

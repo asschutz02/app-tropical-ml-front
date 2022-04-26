@@ -15,7 +15,7 @@
 }
 
 .div-separator {
-  width: 30px;
+  width: 120px;
 }
 
 :host ::ng-deep .mat-raised-button {
@@ -26,6 +26,10 @@
 
 :host ::ng-deep .mat-raised-button:disabled {
   opacity: 1;
+}
+
+:host ::ng-deep .mat-form-field-flex:first-child {
+  width: 150%;
 }
 
 .div-success {
@@ -41,6 +45,7 @@
   display: flex;
   padding-top: 20px;
   padding-right: 10px;
+  padding-left: 20px;
 }
 
 .span-cifrao {
@@ -49,6 +54,7 @@
 
 .div-center {
   text-align: center;
+  margin-top: 50px;
 }
 
 .div-center-input {

@@ -19,7 +19,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
   products: ProductModel[] = [];
   filteredList: ProductModel[] = [];
 
-  filtro?: string;
   panelOpenState = false;
 
   formEdit = this.fb.group({
@@ -96,6 +95,10 @@ export class ProductsComponent implements OnInit, OnDestroy {
         }));
       }
     }
+  }
+
+  gerarRelatorio(): void {
+    this.subscription.push(this.service.gerarRelatorio().subscribe());
   }
 
   deleteProduto(name: string | undefined): void {
