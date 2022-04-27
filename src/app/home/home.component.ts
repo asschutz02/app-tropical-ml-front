@@ -26,8 +26,16 @@ export class HomeComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
   }
 
-  successReceiver(event: boolean) {
+  loadingReceiver(event: boolean) {
     this.loading = event;
+  }
+
+  successReceiver(event: boolean) {
+    this.success = event;
+  }
+
+  errorReceiver(event: boolean){
+    this.error = event;
   }
 
   buscarProduto(): void {

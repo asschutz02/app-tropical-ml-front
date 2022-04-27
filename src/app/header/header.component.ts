@@ -21,7 +21,13 @@ export class HeaderComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
 
   @Output()
+  public loading = new EventEmitter<boolean>();
+
+  @Output()
   public success = new EventEmitter<boolean>();
+
+  @Output()
+  public error = new EventEmitter<boolean>();
 
   constructor(private store: Store<AppState>, private dialog: MatDialog, private service: HeaderService) { }
 
@@ -57,9 +63,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   gerarRelatorio(): void {
-    this.success.emit(true);
+    this.loading.emit(true);
     this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
-      this.success.emit(false);
+      this.loading.emit(false);
+      this.success.emit(true);
+    },
+      error => {
+        console.log(error);
+        this.loading.emit(false);
+        this.error.emit(true);
     }));
   }
 

@@ -1,6 +1,8 @@
 <form [formGroup]="form">
   <div class="background-home">
-    <app-header (success)="successReceiver($event)"></app-header>
+    <app-header (loading)="loadingReceiver($event)"
+                (success)="successReceiver($event)"
+                (error)="errorReceiver($event)"></app-header>
     <div class="div-center">
         <img class="img-style"
              src='../../assets/img/logo-topicalimport.png'
