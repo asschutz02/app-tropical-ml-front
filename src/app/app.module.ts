@@ -26,6 +26,8 @@ import {SellerService} from "./sellers/service/seller-service";
 import {HeaderService} from "./header/service/header-service";
 import {HomeService} from "./home/service/home-service";
 import {IConfig, NgxMaskModule} from "ngx-mask";
+import { LojistasComponent } from './lojistas/lojistas.component';
+import {LojistaService} from "./lojistas/service/lojista-service";
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -40,7 +42,8 @@ const maskConfig: Partial<IConfig> = {
     ModalDirective,
     NicknameComponent,
     ProductsComponent,
-    SellersComponent
+    SellersComponent,
+    LojistasComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,8 @@ const maskConfig: Partial<IConfig> = {
     ProductService,
     SellerService,
     HeaderService,
-    HomeService
+    HomeService,
+    LojistaService
   ],
   bootstrap: [AppComponent]
 })

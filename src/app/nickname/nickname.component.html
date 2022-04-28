@@ -9,10 +9,24 @@
       <br>
 
       <span class="span-style">Lojista:</span>
-      <input class="input-style margin-last" formControlName="lojista" placeholder="Lojista">
+      <mat-form-field appearance="fill">
+        <mat-label>Lojistas</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let lojista of lojistas" (blur)="setLojista(lojista?.lojista)" [value]="lojista.lojista">
+            {{ lojista.lojista | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <span class="span-style">Vendedor:</span>
-      <input class="input-style margin-last" formControlName="vendedor" placeholder="Vendedor Tropical">
+      <mat-form-field appearance="fill">
+        <mat-label>Vendedores</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let vend of sellers" (blur)="setSeller(vend?.name)" [value]="vend.name">
+            {{ vend.name | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
       <div class="div-center">
         <div (click)="cadastrarNickname()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
@@ -114,10 +128,25 @@
                         <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                       </div>
                       <div>
-                        <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Lojistas</mat-label>
+                          <mat-select>
+                            <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
+                              {{ lojista.lojista | titlecase }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </div>
+
                       <div>
-                        <input class="input-style margin-last" formControlName="editLojista" placeholder="Editar lojista">
+                        <mat-form-field appearance="fill">
+                          <mat-label>Vendedores</mat-label>
+                          <mat-select>
+                            <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
+                              {{ vend.name | titlecase }}
+                            </mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </div>
                     </form>
                   </div>
@@ -161,7 +190,25 @@
                       <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Lojistas</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
+                            {{ lojista.lojista | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Vendedores</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
+                            {{ vend.name | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </form>
                 </div>
@@ -205,7 +252,25 @@
                       <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Lojistas</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
+                            {{ lojista.lojista | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Vendedores</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
+                            {{ vend.name | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </form>
                 </div>
@@ -249,7 +314,25 @@
                       <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <input class="input-style margin-last" formControlName="editVendedor" placeholder="Editar vendedor Tropical">
+                      <mat-form-field appearance="fill">
+                        <mat-label>Lojistas</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
+                            {{ lojista.lojista | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+
+                    <div>
+                      <mat-form-field appearance="fill">
+                        <mat-label>Vendedores</mat-label>
+                        <mat-select>
+                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
+                            {{ vend.name | titlecase }}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
                     </div>
                   </form>
                 </div>

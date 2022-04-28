@@ -1,0 +1,112 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  padding: 20px;
+  max-height: 80vh;
+  overflow-y: scroll;
+}
+
+.div-right {
+  border-left: 1px solid #E5E5E5;
+  width: 70%;
+  padding-left: 20px;
+}
+
+.input-style {
+  height: 35px;
+  padding: 0 10px 0 10px;
+}
+
+.margin-last {
+  margin-bottom: 30px;
+}
+
+.span-title-style {
+  font-size: 17px;
+  font-weight: bold;
+  padding-bottom: 20px;
+}
+
+.span-style {
+  padding-bottom: 5px;
+}
+
+.div-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 30%;
+  padding-right: 20px;
+}
+
+.div-button {
+  background-color: #25365c;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  border-radius: 2px;
+  color: white;
+  width: 100px;
+  height: 30px;
+  align-items: center;
+}
+
+.div-center{
+  display: flex;
+  justify-content: center;
+}
+
+.div-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.pointer {
+  margin-left: 40px;
+  cursor: pointer;
+  display: flex;
+  flex: auto;
+  justify-content: space-between;
+}
+
+.span-edit {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.opacity {
+  opacity: 0.5;
+  cursor: auto !important;
+}
+
+.div-left{
+  display: flex;
+  justify-content: flex-start;
+}
+
+.div-all {
+  padding-bottom: 5px;
+}
+
+.div-shadow {
+  height: 40px;
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #cacaca;
+  border-radius: 2px;
+  box-shadow: 0 0 1px 1px rgba(50, 50, 50, 0.77);
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.div-between-secondary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

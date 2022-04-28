@@ -6,6 +6,7 @@ import {registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
 import {ProductService} from "./service/product-service";
 import {Subscription} from "rxjs";
+import {Sorter} from "../helper/sorter";
 
 @Component({
   selector: 'app-products',
@@ -49,7 +50,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   findAll(): void {
     this.subscription.push(this.service.findAllProducts().subscribe(prods => {
-      this.products = prods;
+      this.products = prods.sort(Sorter.dynamycSort("name"));
     }));
   }
 
@@ -120,7 +121,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }));
   }
 
-  filterList(): NicknameModel[] {
+  filterList(): ProductModel[] {
     this.filteredList = this.products.filter(nick => nick.name === this.form.get('filter')?.value);
 
     return this.filteredList;

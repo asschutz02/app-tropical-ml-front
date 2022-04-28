@@ -3,6 +3,11 @@ import {NicknameModel} from "./model/nickname.model";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {NicknameService} from "./service/nickname-service";
 import {Subscription} from "rxjs";
+import {LojistaService} from "../lojistas/service/lojista-service";
+import {LojistaModel} from "../lojistas/model/lojista.model";
+import {SellerService} from "../sellers/service/seller-service";
+import {SellerModel} from "../sellers/model/seller.model";
+import {Sorter} from "../helper/sorter";
 
 @Component({
   selector: 'app-nickname',
@@ -17,7 +22,16 @@ export class NicknameComponent implements OnInit, OnDestroy {
 
   subscription: Subscription[] = [];
 
+  lojistaSelected: string | undefined = undefined;
+  sellerSelected: string | undefined= undefined;
+
+  lojistaEditSelected: string | undefined = undefined;
+  sellerEditSelected: string | undefined = undefined;
+
+  lojistas: LojistaModel[] = [];
   nicknames: NicknameModel[] = [];
+  sellers: SellerModel[] = [];
+
   filteredNickList: NicknameModel[] = [];
   filteredLojistaList: NicknameModel[] = [];
   filteredVendedorList: NicknameModel[] = [];
@@ -26,8 +40,8 @@ export class NicknameComponent implements OnInit, OnDestroy {
 
   formEdit = this.fb.group({
     editNickname: new FormControl(null,null),
-    editVendedor: new FormControl(null,null),
-    editLojista: new FormControl(null, null)
+    // editVendedor: new FormControl(null,null),
+    // editLojista: new FormControl(null, null)
   });
 
   form = this.fb.group({
@@ -35,27 +49,40 @@ export class NicknameComponent implements OnInit, OnDestroy {
     filterLojista: new FormControl(null,null),
     filterVendedor: new FormControl(null,null),
     nickname: new FormControl(null,[Validators.required]),
-    vendedor: new FormControl(null,[Validators.required]),
-    lojista: new FormControl(null,[Validators.required]),
   });
 
-  constructor(private service: NicknameService, private fb: FormBuilder) { }
+  constructor(private service: NicknameService, private fb: FormBuilder,
+              private lojistaService: LojistaService, private vendedorService: SellerService) { }
 
   ngOnInit(): void {
     this.findAll();
+    this.findAllLojistas();
+    this.findAllSellers();
+  }
+
+  findAllSellers(): void {
+    this.subscription.push(this.vendedorService.findAllSellers().subscribe(sell => {
+      this.sellers = sell.sort(Sorter.dynamycSort("name"));
+    }));
+  }
+
+  findAllLojistas(): void{
+    this.subscription.push(this.lojistaService.findAllLojista().subscribe(loj => {
+      this.lojistas = loj.sort(Sorter.dynamycSort("lojista"));
+    }));
   }
 
   findAll(): void {
     this.subscription.push(this.service.findAllNicknames().subscribe(response => {
-      this.nicknames = response;
+      this.nicknames = response.sort(Sorter.dynamycSort("nickname"));
     }));
   }
 
   cadastrarNickname(): void {
-    if(this.form.get('nickname')?.value !== null && this.form.get('vendedor')?.value !== null
-      && this.form.get('lojista')?.value){
+    if(this.form.get('nickname')?.value !== null && this.sellerSelected !== undefined
+      && this.lojistaSelected !== undefined){
       this.subscription.push(this.service.createNickname(this.form.get('nickname')?.value.toLowerCase(),
-        this.form.get('vendedor')?.value.toLowerCase(), this.form.get('lojista')?.value.toLowerCase())
+        this.sellerSelected?.toLowerCase(), this.lojistaSelected?.toLowerCase())
         .subscribe(() => {
         this.form.reset();
         this.findAll();
@@ -64,10 +91,10 @@ export class NicknameComponent implements OnInit, OnDestroy {
   }
 
   editarNickname(nicknameEdit: string | undefined): void {
-    if(this.formEdit.get('editNickname')?.value !== null || this.formEdit.get('editVendedor')?.value !== null ||
-      this.formEdit.get('editLojista')?.value !== null){
+    if(this.formEdit.get('editNickname')?.value !== null || this.sellerEditSelected !== undefined
+      || this.lojistaEditSelected !== undefined){
       this.subscription.push(this.service.editNickname(nicknameEdit?.toLowerCase(), this.formEdit.get('editNickname')?.value?.toLowerCase(),
-        this.formEdit.get('editVendedor')?.value?.toLowerCase(), this.formEdit.get('editLojista')?.value?.toLowerCase())
+        this.sellerEditSelected?.toLowerCase(), this.lojistaEditSelected?.toLowerCase())
         .subscribe(() => {
         this.formEdit.reset();
         this.findAll();
@@ -127,13 +154,29 @@ export class NicknameComponent implements OnInit, OnDestroy {
     return this.filteredLojistaList;
   }
 
+  setLojista(lojista: string | undefined): void {
+    this.lojistaSelected = lojista;
+  }
+
+  setEditLojista(lojista: string | undefined): void {
+    this.lojistaEditSelected = lojista;
+  }
+
+  setSeller(seller: string | undefined): void {
+    this.sellerSelected = seller;
+  }
+
+  setEditSeller(seller: string | undefined): void {
+    this.sellerEditSelected = seller;
+  }
+
   ngOnDestroy(): void {
     this.subscription.forEach(subs => subs.unsubscribe());
   }
 
   validateEditForm(): string {
-    if(this.formEdit.get('editNickname')?.value == null && this.formEdit.get('editVendedor')?.value == null
-      && this.formEdit.get('editLojista')?.value == null){
+    if(this.formEdit.get('editNickname')?.value == null && this.sellerEditSelected == undefined
+      && this.lojistaEditSelected == undefined){
       return 'div-button opacity';
     } else {
       return 'div-button';

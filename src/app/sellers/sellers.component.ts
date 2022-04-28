@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {NicknameModel} from "../nickname/model/nickname.model";
 import {SellerModel} from "./model/seller.model";
 import {SellerService} from "./service/seller-service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
+import {Sorter} from "../helper/sorter";
 
 @Component({
   selector: 'app-sellers',
@@ -17,7 +17,6 @@ export class SellersComponent implements OnInit, OnDestroy {
   sellers: SellerModel[] = [];
   filteredList: SellerModel[] = [];
 
-  filtro?: string;
   panelOpenState = false;
 
   formEdit = this.fb.group({
@@ -37,7 +36,7 @@ export class SellersComponent implements OnInit, OnDestroy {
 
   findAll(): void {
     this.subscription.push(this.service.findAllSellers().subscribe(sellers => {
-      this.sellers = sellers;
+      this.sellers = sellers.sort(Sorter.dynamycSort("name"));
     }));
   }
 
@@ -60,12 +59,12 @@ export class SellersComponent implements OnInit, OnDestroy {
   }
 
   deleteVendedor(nameEdit: string | undefined): void {
-    this.subscription.push(this.service.deleteProduct(nameEdit).subscribe(() => {
+    this.subscription.push(this.service.deleteSeller(nameEdit).subscribe(() => {
       this.findAll();
     }));
   }
 
-  filterList(): NicknameModel[] {
+  filterList(): SellerModel[] {
     this.filteredList = this.sellers.filter(nick => nick.name === this.form.get('filter')?.value);
 
     return this.filteredList;

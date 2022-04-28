@@ -28,7 +28,7 @@ export class SellerService {
     return this.http.put<void>(`http://localhost:9096/tropical/sellers/${nameEdit}`, request);
   }
 
-  public deleteProduct(name: string | undefined): Observable<void> {
+  public deleteSeller(name: string | undefined): Observable<void> {
     return this.http.delete<void>(`http://localhost:9096/tropical/sellers/${name}`);
   }
 }

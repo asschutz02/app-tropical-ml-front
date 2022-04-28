@@ -14,16 +14,18 @@ export class NicknameService {
     return this.http.get<NicknameModel[]>(`http://localhost:9096/tropical/nicknames/all`);
   }
 
-  public createNickname(nickname: string, customerBy: string, lojista: string): Observable<void> {
+  public createNickname(nickname: string, customerBy: string | undefined, lojista: string | undefined): Observable<void> {
     const request = {
       nickname,
       customerBy,
       lojista
     };
+    console.log('request: ', request);
     return this.http.post<void>(`http://localhost:9096/tropical/nicknames`, request);
   }
 
-  public editNickname(nicknameEdit: string | undefined, nickname: string, customerBy: string, lojista: string): Observable<void>{
+  public editNickname(nicknameEdit: string | undefined, nickname: string | undefined,
+                      customerBy: string | undefined, lojista: string | undefined): Observable<void>{
     const request = {
       nickname,
       customerBy,

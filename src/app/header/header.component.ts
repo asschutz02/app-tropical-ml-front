@@ -1,15 +1,16 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import { Store } from '@ngrx/store';
+import {Store} from '@ngrx/store';
 import {SharedModalDialogComponent} from "../shared-modal/shared-modal-dialog/shared-modal-dialog.component";
-import { AppState } from '../store/app.state';
-import { ModalAddItem } from '../store/modal/modal-add-item';
+import {AppState} from '../store/app.state';
+import {ModalAddItem} from '../store/modal/modal-add-item';
 import * as ModalDialogAction from "../store/modal/modal-dialog/modal-dialog.actions";
 import {NicknameComponent} from "../nickname/nickname.component";
 import {ProductsComponent} from "../products/products.component";
 import {SellersComponent} from "../sellers/sellers.component";
 import {HeaderService} from "./service/header-service";
 import {Subscription} from "rxjs";
+import {LojistasComponent} from "../lojistas/lojistas.component";
 
 @Component({
   selector: 'app-header',
@@ -54,6 +55,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.store.dispatch(ModalDialogAction.changeModal({
       title: 'Vendedores',
       child: new ModalAddItem(SellersComponent)
+    }));
+    this.openDialog();
+  }
+
+  openModalLojistas(): void {
+    this.store.dispatch(ModalDialogAction.changeModal({
+      title: 'Lojistas',
+      child: new ModalAddItem(LojistasComponent)
     }));
     this.openDialog();
   }
