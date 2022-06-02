@@ -4,28 +4,36 @@
       <span class="span-title-style">Cadastro de nicknames</span>
 
       <span class="span-style">Nickname:</span>
-      <input class="input-style" formControlName="nickname" placeholder="Nickname do cliente">
+      <input (click)="findAllLojistas()" class="input-style" formControlName="nickname" placeholder="Nickname do cliente">
 
       <br>
 
       <span class="span-style">Lojista:</span>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Lojistas</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let lojista of lojistas" (blur)="setLojista(lojista?.lojista)" [value]="lojista.lojista">
-            {{ lojista.lojista | titlecase }}
+        <input type="text"
+               matInput
+               formControlName="lojista"
+               [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let option of filteredLojistas | async" [value]="option.lojista">
+            {{option.lojista | uppercase}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
 
       <span class="span-style">Vendedor:</span>
-      <mat-form-field appearance="fill">
+      <mat-form-field class="example-full-width" appearance="fill">
         <mat-label>Vendedores</mat-label>
-        <mat-select>
-          <mat-option *ngFor="let vend of sellers" (blur)="setSeller(vend?.name)" [value]="vend.name">
-            {{ vend.name | titlecase }}
+        <input type="text"
+               matInput
+               formControlName="vendedor"
+               [matAutocomplete]="autoVendedor">
+        <mat-autocomplete #autoVendedor="matAutocomplete">
+          <mat-option *ngFor="let option of filteredVendedores | async" [value]="option.name">
+            {{option.name | titlecase}}
           </mat-option>
-        </mat-select>
+        </mat-autocomplete>
       </mat-form-field>
 
       <div class="div-center">
@@ -114,7 +122,7 @@
                                    (closed)="panelOpenState = false">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                    {{ nick.nickname | uppercase }} | {{ nick?.lojista | titlecase }}
                   </mat-panel-title>
                   <mat-panel-description>
                     {{ nick.customerBy | titlecase }}
@@ -125,27 +133,35 @@
                     <form [formGroup]="formEdit">
                       <span class="span-edit">Atualizar informações: </span>
                       <div>
-                        <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                        <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                       </div>
                       <div>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field class="example-full-width" appearance="fill">
                           <mat-label>Lojistas</mat-label>
-                          <mat-select>
-                            <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
-                              {{ lojista.lojista | titlecase }}
+                          <input type="text"
+                                 matInput
+                                 formControlName="editLojista"
+                                 [matAutocomplete]="autoEditLojista">
+                          <mat-autocomplete #autoEditLojista="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredEditLojistas | async" [value]="option.lojista">
+                              {{option.lojista | uppercase}}
                             </mat-option>
-                          </mat-select>
+                          </mat-autocomplete>
                         </mat-form-field>
                       </div>
 
                       <div>
-                        <mat-form-field appearance="fill">
+                        <mat-form-field class="example-full-width" appearance="fill">
                           <mat-label>Vendedores</mat-label>
-                          <mat-select>
-                            <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
-                              {{ vend.name | titlecase }}
+                          <input type="text"
+                                 matInput
+                                 formControlName="editVendedor"
+                                 [matAutocomplete]="autoEditVendedor">
+                          <mat-autocomplete #autoEditVendedor="matAutocomplete">
+                            <mat-option *ngFor="let option of filteredEditVendedores | async" [value]="option.name">
+                              {{option.name | titlecase}}
                             </mat-option>
-                          </mat-select>
+                          </mat-autocomplete>
                         </mat-form-field>
                       </div>
                     </form>
@@ -176,7 +192,7 @@
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                  {{ nick.nickname | uppercase }} | {{ nick?.lojista | titlecase }}
                 </mat-panel-title>
                 <mat-panel-description>
                   {{ nick.customerBy | titlecase }}
@@ -187,27 +203,35 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Lojistas</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
-                            {{ lojista.lojista | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editLojista"
+                               [matAutocomplete]="autoEditLojista">
+                        <mat-autocomplete #autoEditLojista="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditLojistas | async" [value]="option.lojista">
+                            {{option.lojista | uppercase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
 
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Vendedores</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
-                            {{ vend.name | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editVendedor"
+                               [matAutocomplete]="autoEditVendedor">
+                        <mat-autocomplete #autoEditVendedor="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditVendedores | async" [value]="option.name">
+                            {{option.name | titlecase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
                   </form>
@@ -238,7 +262,7 @@
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                  {{ nick.nickname | uppercase }} | {{ nick?.lojista | titlecase }}
                 </mat-panel-title>
                 <mat-panel-description>
                   {{ nick.customerBy | titlecase }}
@@ -249,27 +273,35 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Lojistas</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
-                            {{ lojista.lojista | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editLojista"
+                               [matAutocomplete]="autoEditLojista">
+                        <mat-autocomplete #autoEditLojista="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditLojistas | async" [value]="option.lojista">
+                            {{option.lojista | uppercase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
 
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Vendedores</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
-                            {{ vend.name | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editVendedor"
+                               [matAutocomplete]="autoEditVendedor">
+                        <mat-autocomplete #autoEditVendedor="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditVendedores | async" [value]="option.name">
+                            {{option.name | titlecase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
                   </form>
@@ -300,7 +332,7 @@
                                  (closed)="panelOpenState = false">
               <mat-expansion-panel-header>
                 <mat-panel-title>
-                  {{ nick.nickname | titlecase }} | {{ nick?.lojista | titlecase }}
+                  {{ nick.nickname | uppercase }} | {{ nick?.lojista | titlecase }}
                 </mat-panel-title>
                 <mat-panel-description>
                   {{ nick.customerBy | titlecase }}
@@ -311,27 +343,35 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
                     </div>
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Lojistas</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let lojista of lojistas" (blur)="setEditLojista(lojista?.lojista)" [value]="lojista.lojista">
-                            {{ lojista.lojista | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editLojista"
+                               [matAutocomplete]="autoEditLojista">
+                        <mat-autocomplete #autoEditLojista="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditLojistas | async" [value]="option.lojista">
+                            {{option.lojista | uppercase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
 
                     <div>
-                      <mat-form-field appearance="fill">
+                      <mat-form-field class="example-full-width" appearance="fill">
                         <mat-label>Vendedores</mat-label>
-                        <mat-select>
-                          <mat-option *ngFor="let vend of sellers" (blur)="setEditSeller(vend?.name)" [value]="vend.name">
-                            {{ vend.name | titlecase }}
+                        <input type="text"
+                               matInput
+                               formControlName="editVendedor"
+                               [matAutocomplete]="autoEditVendedor">
+                        <mat-autocomplete #autoEditVendedor="matAutocomplete">
+                          <mat-option *ngFor="let option of filteredEditVendedores | async" [value]="option.name">
+                            {{option.name | titlecase}}
                           </mat-option>
-                        </mat-select>
+                        </mat-autocomplete>
                       </mat-form-field>
                     </div>
                   </form>

@@ -122,7 +122,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   filterList(): ProductModel[] {
-    this.filteredList = this.products.filter(nick => nick.name === this.form.get('filter')?.value);
+    this.filteredList = this.products.filter(nick => nick.name?.match(this.form.get('filter')?.value));
 
     return this.filteredList;
   }

@@ -65,7 +65,7 @@ export class LojistasComponent implements OnInit {
   }
 
   filterList(): LojistaModel[] {
-    this.filteredList = this.lojistas.filter(nick => nick.lojista === this.form.get('filter')?.value);
+    this.filteredList = this.lojistas.filter(nick => nick.lojista?.match(this.form.get('filter')?.value));
 
     return this.filteredList;
   }

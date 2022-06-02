@@ -65,7 +65,7 @@ export class SellersComponent implements OnInit, OnDestroy {
   }
 
   filterList(): SellerModel[] {
-    this.filteredList = this.sellers.filter(nick => nick.name === this.form.get('filter')?.value);
+    this.filteredList = this.sellers.filter(nick => nick.name?.match(this.form.get('filter')?.value));
 
     return this.filteredList;
   }

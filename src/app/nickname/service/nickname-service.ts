@@ -20,7 +20,6 @@ export class NicknameService {
       customerBy,
       lojista
     };
-    console.log('request: ', request);
     return this.http.post<void>(`http://localhost:9096/tropical/nicknames`, request);
   }
 
