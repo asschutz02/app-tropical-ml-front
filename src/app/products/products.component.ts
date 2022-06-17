@@ -1,6 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
-import {NicknameModel} from "../nickname/model/nickname.model";
 import {ProductModel} from "./model/product.model";
 import {registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
@@ -41,7 +40,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
         this.subscription.forEach(subs => subs.unsubscribe());
-    }
+  }
 
   ngOnInit(): void {
     registerLocaleData(localePt);

@@ -1,0 +1,87 @@
+ul {
+  list-style-type: none;
+  margin-top: 4px;
+}
+
+.div-button-relatorio {
+  max-height: 25px;
+  margin-top: 30px;
+  padding-top: 10px;
+  width: 140px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.left {
+ margin-left: 10px;
+}
+
+.yellow {
+  background: #FFD700;
+}
+
+.text-yellow {
+  color: #FFD700;
+}
+
+.blue {
+  background: #25365c;
+}
+
+.text-blue {
+  color: #25365c;
+}
+
+.text-button {
+  padding-bottom: 5px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.div-success {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+  background: green;
+  width: 195px;
+  margin-top: 10px;
+  height: 25px;
+  border-radius: 2px
+}
+
+.span-white {
+  color: white;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.span-font {
+  font-size: 15px;
+}
+
+.div-pointer {
+  cursor: pointer;
+}
+
+.div-error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 25px;
+  align-items: center;
+  background: red;
+  margin-top: 30px;
+  height: 25px;
+  border-radius: 2px
+}
+
+.width {
+  width: 240px !important;
+}

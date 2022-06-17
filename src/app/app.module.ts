@@ -28,6 +28,8 @@ import {HomeService} from "./home/service/home-service";
 import {IConfig, NgxMaskModule} from "ngx-mask";
 import { LojistasComponent } from './lojistas/lojistas.component';
 import {LojistaService} from "./lojistas/service/lojista-service";
+import { RelatorioComponent } from './relatorio/relatorio.component';
+import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from "@angular/material/checkbox";
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -43,7 +45,8 @@ const maskConfig: Partial<IConfig> = {
     NicknameComponent,
     ProductsComponent,
     SellersComponent,
-    LojistasComponent
+    LojistasComponent,
+    RelatorioComponent
   ],
   imports: [
     BrowserModule,
@@ -70,7 +73,8 @@ const maskConfig: Partial<IConfig> = {
     SellerService,
     HeaderService,
     HomeService,
-    LojistaService
+    LojistaService,
+    {provide: MAT_CHECKBOX_DEFAULT_OPTIONS, useValue: { clickAction: 'check' } as MatCheckboxDefaultOptions}
   ],
   bootstrap: [AppComponent]
 })

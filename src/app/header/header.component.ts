@@ -11,6 +11,7 @@ import {SellersComponent} from "../sellers/sellers.component";
 import {HeaderService} from "./service/header-service";
 import {Subscription} from "rxjs";
 import {LojistasComponent} from "../lojistas/lojistas.component";
+import {RelatorioComponent} from "../relatorio/relatorio.component";
 
 @Component({
   selector: 'app-header',
@@ -33,6 +34,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
   constructor(private store: Store<AppState>, private dialog: MatDialog, private service: HeaderService) { }
 
   ngOnInit(): void {
+  }
+
+  openModalRelatorio(): void {
+    this.store.dispatch(ModalDialogAction.changeModal({
+      title: 'Relatório',
+      child: new ModalAddItem(RelatorioComponent)
+    }));
+    this.openDialog();
   }
 
   openModalNicknames(): void {
@@ -73,15 +82,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   gerarRelatorio(): void {
     this.loading.emit(true);
-    this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
-      this.loading.emit(false);
-      this.success.emit(true);
-    },
-      error => {
-        console.log(error);
-        this.loading.emit(false);
-        this.error.emit(true);
-    }));
+    // this.subscription.push(this.service.gerarRelatorio().subscribe(() => {
+    //   this.loading.emit(false);
+    //   this.success.emit(true);
+    // },
+    //   error => {
+    //     console.log(error);
+    //     this.loading.emit(false);
+    //     this.error.emit(true);
+    // }));
   }
 
   ngOnDestroy(): void {
