@@ -1,17 +1,27 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ProductModel} from "../model/product.model";
+
+let headersReq = new HttpHeaders({
+  'Content-Type': 'application/json; charset=utf-8',
+  'Access-Control-Allow-Headers': 'Content-Type',
+  'Access-Control-Allow-Methods': 'GET',
+  'Access-Control-Allow-Origin': '*'
+});
 
 @Injectable({
   providedIn: "root",
 })
 export class ProductService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   public findAllProducts(): Observable<ProductModel[]> {
-    return this.http.get<ProductModel[]>(`http://localhost:9096/tropical/products/all`);
+    // return this.http.get<ProductModel[]>(`http://localhost:9096/tropical/products/all`);
+    return this.http.get<ProductModel[]>(`https://tropical-ml-backend.herokuapp.com/tropical/products/all`,
+      {headers: headersReq});
   }
 
   public createProduct(name: string, price: number): Observable<void> {
@@ -22,7 +32,7 @@ export class ProductService {
     return this.http.post<void>(`http://localhost:9096/tropical/products`, request);
   }
 
-  public editProduct(nameEdit: string | undefined, name: string, price: string): Observable<void>{
+  public editProduct(nameEdit: string | undefined, name: string, price: string): Observable<void> {
     const request = {
       name,
       price

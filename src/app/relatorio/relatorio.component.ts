@@ -6,7 +6,7 @@ import {ProductModel} from "../products/model/product.model";
 import {registerLocaleData} from "@angular/common";
 import localePt from "@angular/common/locales/pt";
 import {ThemePalette} from "@angular/material/core";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {FormBuilder, FormControl} from "@angular/forms";
 import {HeaderService} from "../header/service/header-service";
 
 @Component({
@@ -19,7 +19,6 @@ export class RelatorioComponent implements OnInit, OnDestroy {
   constructor(private service: ProductService, private fb: FormBuilder, private headerService: HeaderService) {}
 
   filteredList: ProductModel[] = [];
-  fullList: boolean | undefined;
   color: ThemePalette = 'primary';
   subscription: Subscription[] = [];
   products: ProductModel[] = [];
@@ -36,7 +35,6 @@ export class RelatorioComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     registerLocaleData(localePt);
     this.findAll();
-    this.setToFalse();
   }
 
   findAll(): void {
@@ -45,47 +43,22 @@ export class RelatorioComponent implements OnInit, OnDestroy {
     }));
   }
 
-  setToFalse(): void {
-    this.listRequest.forEach(p => p.checked = true);
-  }
-
   ngOnDestroy(): void {
     this.subscription.forEach(subs => subs.unsubscribe());
   }
 
   buildRequest(product: ProductModel): void {
-    const filter = this.listRequest.filter(p => p.name == product.name);
+    console.log('this.products.length: ', this.products.length);
+    const filter: ProductModel[] = this.listRequest.filter(p => product.name === p.name);
 
-    if (filter.length == 0) {
-      console.log('caí no == 0');
-      console.log('fullList: ', this.fullList);
+    if (filter.length === 0 ) {
       this.listRequest.push(product);
-      product.checked = true;
-      if (this.listRequest.length == 4) {
-        console.log('caí no == 4');
-        this.fullList = true;
-        console.log('fullList: ', this.fullList);
-      } else if (this.listRequest.length == 5) {
-      console.log('caí no == 5');
-      const index = this.listRequest.indexOf(product);
-      this.listRequest.splice(index, 1);
-      this.fullList = false;
-      console.log('fullList: ', this.fullList);
-        product.checked = false;
-      }
     } else {
-      // (filter.length > 0)
-      console.log('caí no > 0');
-      console.log('fullList: ', this.fullList);
       const index = this.listRequest.indexOf(product);
       this.listRequest.splice(index, 1);
-      product.checked = false;
     }
-    console.log('lista atual: ', this.listRequest);
-  }
 
-  editRequest(): void {
-    this.fullList = false;
+    console.log('request: ', this.listRequest);
   }
 
   gerarRelatorio(): void {
@@ -107,19 +80,20 @@ export class RelatorioComponent implements OnInit, OnDestroy {
     return this.filteredList;
   }
 
-  calculoQtdProduto(): string {
+  setAll(): void {
+    const sizeAll = this.products.length;
+    const request = this.listRequest.length;
 
-    var quantidadeASerSelecionado = (4 - this.listRequest.length);
-
-    return quantidadeASerSelecionado.toString();
-  }
-
-  validaPalavraProduto(): string {
-    var quantidadeASerSelecionado = (4 - this.listRequest.length);
-    if (this.listRequest.length < 4 && quantidadeASerSelecionado !== 1) {
-      return 'produtos';
+    if (sizeAll !== request) {
+      this.listRequest = [];
+      this.products.forEach(p => this.listRequest.push(p));
+      // this.listRequest = this.products;
+      console.log('lista', this.listRequest);
+      this.listRequest.forEach(p => p.checked = true);
     } else {
-      return 'produto';
+      this.listRequest.forEach(p => p.checked = false);
+      this.listRequest = [];
+      console.log('lista', this.listRequest);
     }
   }
 
