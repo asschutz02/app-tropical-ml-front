@@ -17,7 +17,7 @@
     "cypress:run": "cypress run",
     "prepare": "husky install",
     "e2e": "ng e2e",
-    "heroku-postbuild": "ng build"
+    "postinstall": "ng build --prod"
   },
   "private": true,
   "dependencies": {
