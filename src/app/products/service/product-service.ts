@@ -21,8 +21,8 @@ export class ProductService {
   public findAllProducts(): Observable<ProductModel[]> {
     // return this.http.get<ProductModel[]>(`http://localhost:9096/tropical/products/all`);
     // {headers: headersReq}
-    // return this.http.get<ProductModel[]>(`https://tropical-ml-backend.herokuapp.com/tropical/products/all`);
-    return this.http.get<ProductModel[]>(`/api/tropical/products/all`);
+    return this.http.get<ProductModel[]>(`https://tropical-ml-backend.herokuapp.com/tropical/products/all`);
+    // return this.http.get<ProductModel[]>(`/api/tropical/products/all`);
 
   }
 
