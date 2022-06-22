@@ -4,7 +4,7 @@ const PROXY_CONFIG = [
     target: 'https://tropical-ml-backend.herokuapp.com/',
     secure: true,
     logLevel: 'debug',
-    pathRewrite: { '^/api': ''}
+    pathRewrite: { '^/api': '' }
   }
 
 ];
