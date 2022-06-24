@@ -1,8 +1,3 @@
-ul {
-  list-style-type: none;
-  margin-top: 4px;
-}
-
 .div-button-relatorio {
   max-height: 25px;
   margin-top: 30px;
@@ -84,4 +79,57 @@ ul {
 
 .width {
   width: 240px !important;
+}
+
+.div-main {
+  display: flex;
+  flex-direction: row;
+  padding: 30px;
+  overflow-y: scroll;
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid #cacaca;
+}
+
+.sub-div-main {
+  width: 30%;
+  margin-right: 290px;
+}
+
+.div-body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 575px;
+}
+
+.span-bold {
+  font-weight: bold;
+}
+
+.div-products {
+  margin-left: 30px;
+  width: 100%;
+}
+
+.sub-div-products {
+  margin-top: 30px;
+  margin-left: 120px;
+}
+
+.margin-20 {
+  margin-top: 20px;
+}
+
+.div-flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.div-loading-message {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }

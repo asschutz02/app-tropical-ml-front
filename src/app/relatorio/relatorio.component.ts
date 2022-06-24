@@ -87,7 +87,6 @@ export class RelatorioComponent implements OnInit, OnDestroy {
     if (sizeAll !== request) {
       this.listRequest = [];
       this.products.forEach(p => this.listRequest.push(p));
-      // this.listRequest = this.products;
       console.log('lista', this.listRequest);
       this.listRequest.forEach(p => p.checked = true);
     } else {

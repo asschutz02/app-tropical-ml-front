@@ -1,53 +1,51 @@
 <form [formGroup]="form">
-  <div style="display: flex; flex-direction: row; padding: 30px; overflow-y: scroll;">
-    <div style="width: 30%; margin-right: 290px">
-      <div style="display: flex; flex-direction: row; justify-content: space-between;">
+  <div class="div-main">
+    <div class="sub-div-main">
+      <div class="div-body">
         <div>
-          <span style="font-weight: bold">Selecione os produtos:</span>
+          <span class="span-bold">Selecione os produtos:</span>
         </div>
         <div>
-          <form class="example-form">
-            <mat-form-field class="example-full-width" appearance="fill">
+          <form>
+            <mat-form-field appearance="fill">
               <mat-label>Encontre pelo nome</mat-label>
               <input type="text" (blur)="filterList()" matInput formControlName="filter">
             </mat-form-field>
           </form>
         </div>
       </div>
-      <mat-checkbox class="example-margin"
-                    [color]="color"
+      <mat-checkbox [color]="color"
                     (change)="setAll()">
         Todos
       </mat-checkbox>
-        <ul *ngIf="filteredList.length === 0; else filterTemplate">
-          <li *ngFor="let product of products">
+        <div *ngIf="filteredList.length === 0; else filterTemplate">
+          <div *ngFor="let product of products">
             <mat-checkbox (change)="buildRequest(product)"
                           [checked]="product.checked"
                           [color]="color">
               {{product.name | titlecase}}
             </mat-checkbox>
-          </li>
-        </ul>
+          </div>
+        </div>
     </div>
-    <div style="margin-left: 30px; width: 100%">
-      <div *ngIf="listRequest.length >= 1" style="margin-top: 30px">
-        <span style="font-weight: bold">Produtos selecionados:</span>
-        <ul>
-          <li *ngFor="let prod of listRequest">
-            - {{ prod.name | titlecase }}
-          </li>
-        </ul>
+    <div class="div-products">
+      <div *ngIf="listRequest.length >= 1" class="sub-div-products">
+        <span class="span-bold">Produtos selecionados:</span>
+          <div class="margin-20" *ngFor="let prod of listRequest; let i = index">
+           <span class="span-bold">{{ i + 1 }} -</span>  {{ prod.name | titlecase }}
+            <hr>
+          </div>
       </div>
-      <div style="display: flex; justify-content: center">
+      <div class="div-flex-center">
         <div *ngIf="listRequest.length >= 1" class="div-button-relatorio yellow text-blue left" (click)="gerarRelatorio()">
           <span class="text-button">Gerar relatório</span>
         </div>
       </div>
-      <div *ngIf="loading" style="margin-top: 10px; display: flex; justify-content: center">
-        <span style="font-weight: bold">Relatório sendo gerado...</span>
+      <div *ngIf="loading" class="div-loading-message">
+        <span class="span-bold">Relatório sendo gerado...</span>
       </div>
 
-      <div style="display: flex; justify-content: center">
+      <div class="div-flex-center">
         <div *ngIf="success" class="div-success">
           <div>
             <span class="span-white">Relatório enviado com sucesso!</span>
@@ -58,7 +56,7 @@
         </div>
       </div>
 
-      <div style="display: flex; justify-content: center">
+      <div class="div-flex-center">
         <div *ngIf="error" class="div-error width">
           <div>
             <span class="span-white">Erro! Tente novamente em instantes.</span>
@@ -73,13 +71,11 @@
 </form>
 
 <ng-template #filterTemplate>
-  <ul>
-    <li *ngFor="let product of filteredList">
+    <div *ngFor="let product of filteredList">
       <mat-checkbox (change)="buildRequest(product)"
                     [checked]="product.checked"
                     [color]="color">
         {{product.name | titlecase}}
       </mat-checkbox>
-    </li>
-  </ul>
+    </div>
 </ng-template>
