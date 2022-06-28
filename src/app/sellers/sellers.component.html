@@ -4,7 +4,11 @@
       <span class="span-title-style">Cadastro de vendedores</span>
 
       <span class="span-style">Nome:</span>
-      <input class="input-style" formControlName="name" placeholder="Nome do vendedor">
+      <input class="input-style" formControlName="name" (click)="setAlreadyState()" placeholder="Nome do vendedor">
+
+      <div class="div-error-form" *ngIf="alreadyExists">
+        <span class="span-red">Vendedor já cadastrado!</span>
+      </div>
 
       <br>
 

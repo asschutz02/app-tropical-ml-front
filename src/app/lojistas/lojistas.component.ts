@@ -17,6 +17,8 @@ export class LojistasComponent implements OnInit {
   lojistas: LojistaModel[] = [];
   filteredList: LojistaModel[] = [];
 
+  alreadyExists = false;
+
   panelOpenState = false;
 
   formEdit = this.fb.group({
@@ -41,11 +43,14 @@ export class LojistasComponent implements OnInit {
   }
 
   cadastrarVendedor(): void {
-    if(this.form.get('lojista')?.value !== null){
-      this.subscription.push(this.service.createLojista(this.form.get('lojista')?.value.toLowerCase()).subscribe(() => {
-        this.form.get('lojista')?.reset();
-        this.findAll();
-      }));
+    this.verifyIfExists();
+    if(!this.alreadyExists) {
+      if (this.form.get('lojista')?.value !== null) {
+        this.subscription.push(this.service.createLojista(this.form.get('lojista')?.value.toLowerCase()).subscribe(() => {
+          this.form.get('lojista')?.reset();
+          this.findAll();
+        }));
+      }
     }
   }
 
@@ -68,6 +73,23 @@ export class LojistasComponent implements OnInit {
     this.filteredList = this.lojistas.filter(nick => nick.lojista?.match(this.form.get('filter')?.value));
 
     return this.filteredList;
+  }
+
+  verifyIfExists() {
+    if (this.form.get("name")?.value !== null) {
+      let there = this.lojistas.some(l => l.lojista === this.form.get("lojista")?.value);
+      if(there) {
+        this.alreadyExists = true;
+        this.form.invalid;
+      } else {
+        this.alreadyExists = false;
+        this.form.valid;
+      }
+    }
+  }
+
+  setAlreadyState(): void {
+    this.alreadyExists = false;
   }
 
   ngOnDestroy(): void {

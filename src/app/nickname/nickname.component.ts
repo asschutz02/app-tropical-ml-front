@@ -22,6 +22,8 @@ export class NicknameComponent implements OnInit, OnDestroy {
 
   subscription: Subscription[] = [];
 
+  alreadyExists = false;
+
   filteredLojistas: Observable<LojistaModel[]> | undefined;
   filteredEditLojistas: Observable<LojistaModel[]> | undefined;
 
@@ -123,20 +125,23 @@ export class NicknameComponent implements OnInit, OnDestroy {
   }
 
   cadastrarNickname(): void {
-    if (this.form.get('nickname')?.value !== null && this.form.get('lojista')?.value !== null
-      && this.form.get('vendedor')?.value !== null) {
-      this.subscription.push(this.service.createNickname(this.form.get('nickname')?.value.toLowerCase(),
-        this.form.get('vendedor')?.value.toLowerCase(), this.form.get('lojista')?.value.toLowerCase())
-        .subscribe(() => {
-          this.form.reset();
-        }));
-      const nick: NicknameModel = {
-        nickname: this.form.get('nickname')?.value,
-        customerBy: this.form.get('vendedor')?.value.toLowerCase(),
-        lojista: this.form.get('lojista')?.value.toLowerCase()
+    this.verifyIfExists();
+    if(!this.alreadyExists) {
+      if (this.form.get('nickname')?.value !== null && this.form.get('lojista')?.value !== null
+        && this.form.get('vendedor')?.value !== null) {
+        this.subscription.push(this.service.createNickname(this.form.get('nickname')?.value.toLowerCase(),
+          this.form.get('vendedor')?.value.toLowerCase(), this.form.get('lojista')?.value.toLowerCase())
+          .subscribe(() => {
+            this.form.reset();
+          }));
+        const nick: NicknameModel = {
+          nickname: this.form.get('nickname')?.value,
+          customerBy: this.form.get('vendedor')?.value.toLowerCase(),
+          lojista: this.form.get('lojista')?.value.toLowerCase()
+        }
+        this.nicknames.push(nick);
+        this.nicknames.sort(Sorter.dynamycSort("nickname"));
       }
-      this.nicknames.push(nick);
-      this.nicknames.sort(Sorter.dynamycSort("nickname"));
     }
   }
 
@@ -216,6 +221,23 @@ export class NicknameComponent implements OnInit, OnDestroy {
     } else {
       return 'div-button';
     }
+  }
+
+  verifyIfExists() {
+    if (this.form.get("name")?.value !== null) {
+      let there = this.nicknames.some(n => n.nickname === this.form.get("nickname")?.value);
+      if(there) {
+        this.alreadyExists = true;
+        this.form.invalid;
+      } else {
+        this.alreadyExists = false;
+        this.form.valid;
+      }
+    }
+  }
+
+  setAlreadyState(): void {
+    this.alreadyExists = false;
   }
 
   closeSuccess(): void {

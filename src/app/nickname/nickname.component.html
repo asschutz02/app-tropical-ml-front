@@ -4,7 +4,11 @@
       <span class="span-title-style">Cadastro de nicknames</span>
 
       <span class="span-style">Nickname:</span>
-      <input (click)="findAllLojistas()" class="input-style" formControlName="nickname" placeholder="Nickname do cliente">
+      <input (click)="findAllLojistas()" class="input-style" (click)="setAlreadyState()" formControlName="nickname" placeholder="Nickname do cliente">
+
+      <div class="div-error-form" *ngIf="alreadyExists">
+        <span class="span-red">Nickname já cadastrado!</span>
+      </div>
 
       <br>
 

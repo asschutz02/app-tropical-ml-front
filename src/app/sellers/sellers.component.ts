@@ -18,6 +18,7 @@ export class SellersComponent implements OnInit, OnDestroy {
   filteredList: SellerModel[] = [];
 
   panelOpenState = false;
+  alreadyExists = false;
 
   formEdit = this.fb.group({
     editName: new FormControl(null,[Validators.required])
@@ -41,11 +42,15 @@ export class SellersComponent implements OnInit, OnDestroy {
   }
 
   cadastrarVendedor(): void {
-    if(this.form.get('name')?.value !== null){
-      this.subscription.push(this.service.createSeller(this.form.get('name')?.value.toLowerCase()).subscribe(() => {
-        this.form.get('name')?.reset();
-        this.findAll();
-      }));
+    this.verifyIfExists();
+    if(!this.alreadyExists) {
+      this.alreadyExists =  false;
+      if(this.form.get('name')?.value !== null){
+        this.subscription.push(this.service.createSeller(this.form.get('name')?.value.toLowerCase()).subscribe(() => {
+          this.form.get('name')?.reset();
+          this.findAll();
+        }));
+      }
     }
   }
 
@@ -68,6 +73,23 @@ export class SellersComponent implements OnInit, OnDestroy {
     this.filteredList = this.sellers.filter(nick => nick.name?.match(this.form.get('filter')?.value));
 
     return this.filteredList;
+  }
+
+  verifyIfExists() {
+    if (this.form.get("name")?.value !== null) {
+      let there = this.sellers.some(s => s.name === this.form.get("name")?.value);
+      if(there) {
+        this.alreadyExists = true;
+        this.form.invalid;
+      } else {
+        this.alreadyExists = false;
+        this.form.valid;
+      }
+    }
+  }
+
+  setAlreadyState(): void {
+    this.alreadyExists = false;
   }
 
   ngOnDestroy(): void {

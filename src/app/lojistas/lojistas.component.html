@@ -4,7 +4,11 @@
       <span class="span-title-style">Cadastro de lojistas</span>
 
       <span class="span-style">Lojista:</span>
-      <input class="input-style" formControlName="lojista" placeholder="Nome do lojista">
+      <input class="input-style" formControlName="lojista" (click)="setAlreadyState()" placeholder="Nome do lojista">
+
+      <div class="div-error-form" *ngIf="alreadyExists">
+        <span class="span-red">Lojista já cadastrado!</span>
+      </div>
 
       <br>
 

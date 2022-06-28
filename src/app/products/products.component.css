@@ -187,3 +187,13 @@
   height: 25px;
   border-radius: 2px
 }
+
+.span-red {
+  color: red;
+}
+
+.div-error-form {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}

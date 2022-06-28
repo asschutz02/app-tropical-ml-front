@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   subscription: Subscription[] = [];
 
+  alreadyExists = false;
+
   products: ProductModel[] = [];
   filteredList: ProductModel[] = [];
 
@@ -54,21 +56,24 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   cadastrarProduto(): void {
-    if(this.form.get('name')?.value !== null && this.form.get('price')?.value !== null){
-      const priceString = this.form.get('price')?.value;
-      if(priceString.includes(',')) {
-        let price = priceString.replace(',', '.');
-        this.subscription.push(
-          this.service.createProduct(this.form.get('name')?.value.toLowerCase(), price).subscribe(() => {
-            this.findAll();
-          }));
-        this.form.reset();
-      } else {
-        this.subscription.push(this.service.createProduct
-        (this.form.get('name')?.value.toLowerCase(), this.form.get('price')?.value).subscribe(() => {
-          this.findAll();
+    this.verifyIfExists();
+    if(!this.alreadyExists) {
+      if (this.form.get('name')?.value !== null && this.form.get('price')?.value !== null) {
+        const priceString = this.form.get('price')?.value;
+        if (priceString.includes(',')) {
+          let price = priceString.replace(',', '.');
+          this.subscription.push(
+            this.service.createProduct(this.form.get('name')?.value.toLowerCase(), price).subscribe(() => {
+              this.findAll();
+            }));
           this.form.reset();
-        }));
+        } else {
+          this.subscription.push(this.service.createProduct
+          (this.form.get('name')?.value.toLowerCase(), this.form.get('price')?.value).subscribe(() => {
+            this.findAll();
+            this.form.reset();
+          }));
+        }
       }
     }
   }
@@ -132,6 +137,23 @@ export class ProductsComponent implements OnInit, OnDestroy {
     } else {
       return 'div-button';
     }
+  }
+
+  verifyIfExists() {
+    if (this.form.get("name")?.value !== null) {
+      let there = this.products.some(p => p.name === this.form.get("name")?.value);
+      if(there) {
+        this.alreadyExists = true;
+        this.form.invalid;
+      } else {
+        this.alreadyExists = false;
+        this.form.valid;
+      }
+    }
+  }
+
+  setAlreadyState(): void {
+    this.alreadyExists = false;
   }
 
   closeSuccess(): void {
