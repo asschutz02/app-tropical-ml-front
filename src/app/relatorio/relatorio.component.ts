@@ -48,7 +48,6 @@ export class RelatorioComponent implements OnInit, OnDestroy {
   }
 
   buildRequest(product: ProductModel): void {
-    console.log('this.products.length: ', this.products.length);
     const filter: ProductModel[] = this.listRequest.filter(p => product.name === p.name);
 
     if (filter.length === 0 ) {
@@ -87,12 +86,10 @@ export class RelatorioComponent implements OnInit, OnDestroy {
     if (sizeAll !== request) {
       this.listRequest = [];
       this.products.forEach(p => this.listRequest.push(p));
-      console.log('lista', this.listRequest);
       this.listRequest.forEach(p => p.checked = true);
     } else {
       this.listRequest.forEach(p => p.checked = false);
       this.listRequest = [];
-      console.log('lista', this.listRequest);
     }
   }
 

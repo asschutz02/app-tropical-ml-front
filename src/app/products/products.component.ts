@@ -28,20 +28,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   formEdit = this.fb.group({
-    editName: new FormControl(null,null),
-    editPrice: new FormControl(null,null)
+    editName: new FormControl(null, null),
+    editPrice: new FormControl(null, null)
   })
 
   form = this.fb.group({
-    filter: new FormControl(null,null),
-    name: new FormControl(null,[Validators.required]),
-    price: new FormControl(null,[Validators.required]),
+    filter: new FormControl(null, null),
+    name: new FormControl(null, [Validators.required]),
+    price: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private service: ProductService, private fb: FormBuilder) { }
+  constructor(private service: ProductService, private fb: FormBuilder) {
+  }
 
   ngOnDestroy(): void {
-        this.subscription.forEach(subs => subs.unsubscribe());
+    this.subscription.forEach(subs => subs.unsubscribe());
   }
 
   ngOnInit(): void {
@@ -57,7 +58,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   cadastrarProduto(): void {
     this.verifyIfExists();
-    if(!this.alreadyExists) {
+    if (!this.alreadyExists) {
       if (this.form.get('name')?.value !== null && this.form.get('price')?.value !== null) {
         const priceString = this.form.get('price')?.value;
         if (priceString.includes(',')) {
@@ -79,13 +80,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   editarProduto(nameEdit: string | undefined): void {
-    if(this.formEdit.get('editName')?.value !== null || this.formEdit.get('editPrice')?.value !== null){
-      if(this.formEdit.get('editPrice')?.value !== null){
+    if (this.formEdit.get('editName')?.value !== null || this.formEdit.get('editPrice')?.value !== null) {
+      if (this.formEdit.get('editPrice')?.value !== null) {
         const priceString = this.formEdit.get('editPrice')?.value;
-        if(priceString.includes(',')) {
+        if (priceString.includes(',')) {
           let price = priceString.replace(',', '.');
           this.subscription.push(
-            this.service.editProduct(nameEdit?.toLowerCase(),this.formEdit.get('editName')?.value?.toLowerCase(), price).subscribe(() => {
+            this.service.editProduct(nameEdit?.toLowerCase(), this.formEdit.get('editName')?.value?.toLowerCase(), price).subscribe(() => {
               this.findAll();
             }));
           this.formEdit.reset();
@@ -132,7 +133,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   }
 
   validateEditForm(): string {
-    if(this.formEdit.get('editName')?.value == null && this.formEdit.get('editPrice')?.value == null){
+    if (this.formEdit.get('editName')?.value == null && this.formEdit.get('editPrice')?.value == null) {
       return 'div-button opacity';
     } else {
       return 'div-button';
@@ -142,7 +143,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   verifyIfExists() {
     if (this.form.get("name")?.value !== null) {
       let there = this.products.some(p => p.name === this.form.get("name")?.value);
-      if(there) {
+      if (there) {
         this.alreadyExists = true;
         this.form.invalid;
       } else {
