@@ -10,6 +10,7 @@ export class HomeService {
   constructor(private http: HttpClient) {}
 
   public buscarProduto(name: string, price: number): Observable<void>{
-    return this.http.get<void>(`http://localhost:9096/tropical/search/${name}/price/${price}`)
+    // return this.http.get<void>(`http://localhost:9096/tropical/search/${name}/price/${price}`)
+    return this.http.get<void>(`https://tropical-ml-backend.herokuapp.com/tropical/search/${name}/price/${price}`)
   }
 }
