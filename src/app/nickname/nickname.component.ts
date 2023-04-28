@@ -64,7 +64,7 @@ export class NicknameComponent implements OnInit, OnDestroy {
   }
 
   private _filterLojista(value: string): LojistaModel[] {
-    const filterValue = value.toLowerCase();
+    const filterValue = value?.toLowerCase();
 
     return this.lojistas.filter(option => option.lojista.toLowerCase().includes(filterValue));
   }
@@ -145,10 +145,11 @@ export class NicknameComponent implements OnInit, OnDestroy {
     }
   }
 
-  editarNickname(nicknameEdit: string | undefined): void {
-    if (this.formEdit.get('editNickname')?.value !== null || this.formEdit.get('editVendedor')?.value !== null
+  editarNickname(nickname: NicknameModel | undefined): void {
+    this.verifyIfExists();
+    if ((this.formEdit.get('editNickname')?.value !== null && !this.alreadyExists) || this.formEdit.get('editVendedor')?.value !== null
       || this.formEdit.get('editLojista')?.value !== null) {
-      this.subscription.push(this.service.editNickname(nicknameEdit?.toLowerCase(), this.formEdit.get('editNickname')?.value?.toLowerCase(),
+      this.subscription.push(this.service.editNickname(nickname?.nickname?.toLowerCase(), this.formEdit.get('editNickname')?.value?.toLowerCase(),
         this.formEdit.get('editVendedor')?.value?.toLowerCase(), this.formEdit.get('editLojista')?.value?.toLowerCase())
         .subscribe(() => {
           this.formEdit.reset();
@@ -232,6 +233,17 @@ export class NicknameComponent implements OnInit, OnDestroy {
       } else {
         this.alreadyExists = false;
         this.form.valid;
+      }
+    }
+
+    if (this.formEdit.get('editNickname')?.value !== null) {
+      let there = this.nicknames.some(n => n.nickname === this.formEdit.get('editNickname')?.value);
+      if(there) {
+        this.alreadyExists = true;
+        this.formEdit.invalid;
+      } else {
+        this.alreadyExists = false;
+        this.formEdit.valid;
       }
     }
   }

@@ -137,7 +137,11 @@
                     <form [formGroup]="formEdit">
                       <span class="span-edit">Atualizar informações: </span>
                       <div>
-                        <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                        <input (click)="findAllLojistasEdit()" (click)="setAlreadyState()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      </div>
+
+                      <div class="div-error-form-edit" *ngIf="alreadyExists">
+                        <span class="span-red">Nickname já cadastrado!</span>
                       </div>
                       <div>
                         <mat-form-field class="example-full-width" appearance="fill">
@@ -182,7 +186,7 @@
                 </div>
 
                 <div class="div-left">
-                  <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+                  <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
                 </div>
 
               </mat-expansion-panel>
@@ -207,7 +211,11 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" (click)="setAlreadyState()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+
+                    <div class="div-error-form-edit" *ngIf="alreadyExists">
+                      <span class="span-red">Nickname já cadastrado!</span>
                     </div>
                     <div>
                       <mat-form-field class="example-full-width" appearance="fill">
@@ -252,7 +260,7 @@
               </div>
 
               <div class="div-left">
-                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+                <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
               </div>
 
             </mat-expansion-panel>
@@ -277,7 +285,11 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" (click)="setAlreadyState()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+
+                    <div class="div-error-form-edit" *ngIf="alreadyExists">
+                      <span class="span-red">Nickname já cadastrado!</span>
                     </div>
                     <div>
                       <mat-form-field class="example-full-width" appearance="fill">
@@ -322,7 +334,7 @@
               </div>
 
               <div class="div-left">
-                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+                <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
               </div>
 
             </mat-expansion-panel>
@@ -347,7 +359,11 @@
                   <form [formGroup]="formEdit">
                     <span class="span-edit">Atualizar informações: </span>
                     <div>
-                      <input (click)="findAllLojistasEdit()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                      <input (click)="findAllLojistasEdit()" (click)="setAlreadyState()" class="input-style margin-last" formControlName="editNickname" placeholder="Editar nickname">
+                    </div>
+
+                    <div class="div-error-form-edit" *ngIf="alreadyExists">
+                      <span class="span-red">Nickname já cadastrado!</span>
                     </div>
                     <div>
                       <mat-form-field class="example-full-width" appearance="fill">
@@ -392,7 +408,7 @@
               </div>
 
               <div class="div-left">
-                <div (click)="editarNickname(nick.nickname)" [className]="validateEditForm()">Editar</div>
+                <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
               </div>
 
             </mat-expansion-panel>
