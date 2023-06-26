@@ -4,6 +4,8 @@ import {SellerService} from "./service/seller-service";
 import {FormBuilder, FormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Sorter} from "../helper/sorter";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogAnimationComponent} from "../shared-modal/modal-deletion/dialog-animation/dialog-animation.component";
 
 @Component({
   selector: 'app-sellers',
@@ -29,7 +31,13 @@ export class SellersComponent implements OnInit, OnDestroy {
     name: new FormControl(null,[Validators.required]),
   });
 
-  constructor(private service: SellerService, private fb: FormBuilder) { }
+  success = false;
+  error = false;
+
+  successUpdate = false;
+  errorUpdate = false;
+
+  constructor(private service: SellerService, private fb: FormBuilder, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.findAll();
@@ -47,9 +55,14 @@ export class SellersComponent implements OnInit, OnDestroy {
       this.alreadyExists =  false;
       if(this.form.get('name')?.value !== null){
         this.subscription.push(this.service.createSeller(this.form.get('name')?.value.toLowerCase()).subscribe(() => {
-          this.form.get('name')?.reset();
+            this.success = true;
+            this.form.get('name')?.reset();
           this.findAll();
-        }));
+        },
+          error => {
+            console.log(error);
+            this.error = true;
+          }));
       }
     }
   }
@@ -57,16 +70,22 @@ export class SellersComponent implements OnInit, OnDestroy {
   editarVendedor(nameEdit: string | undefined): void {
     if(this.formEdit.get('editName')?.value !== null){
       this.subscription.push(this.service.editSeller(nameEdit?.toLowerCase(), this.formEdit.get('editName')?.value.toLowerCase()).subscribe(() => {
+        this.successUpdate = true;
         this.formEdit.get('editName')?.reset();
         this.findAll();
-      }));
+      },
+        error => {
+          console.log(error);
+          this.errorUpdate = true;
+        }));
     }
   }
 
-  deleteVendedor(nameEdit: string | undefined): void {
-    this.subscription.push(this.service.deleteSeller(nameEdit).subscribe(() => {
-      this.findAll();
-    }));
+  openModalToDelete(vendedor: string | undefined): void {
+    let dialogRef = this.dialog.open(DialogAnimationComponent, {});
+    let instance = dialogRef.componentInstance;
+    instance.entityToBeDeleted = vendedor;
+    instance.type = 'Vendedor';
   }
 
   filterList(): SellerModel[] {
@@ -94,5 +113,21 @@ export class SellersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.subscription.forEach(subs => subs.unsubscribe());
+  }
+
+  closeSuccess(): void {
+    this.success = false;
+  }
+
+  closeError(): void {
+    this.error = false;
+  }
+
+  closeSuccessUpdate(): void {
+    this.successUpdate = false;
+  }
+
+  closeErrorUpdate(): void {
+    this.errorUpdate = false;
   }
 }

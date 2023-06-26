@@ -197,3 +197,8 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+.div-flex-center {
+  display: flex;
+  justify-content: center;
+}

@@ -8,6 +8,8 @@ import {LojistaModel} from "../lojistas/model/lojista.model";
 import {SellerService} from "../sellers/service/seller-service";
 import {SellerModel} from "../sellers/model/seller.model";
 import {Sorter} from "../helper/sorter";
+import {MatDialog} from "@angular/material/dialog";
+import {DialogAnimationComponent} from "../shared-modal/modal-deletion/dialog-animation/dialog-animation.component";
 
 @Component({
   selector: 'app-nickname',
@@ -55,8 +57,15 @@ export class NicknameComponent implements OnInit, OnDestroy {
     vendedor: new FormControl(null, [Validators.required])
   });
 
+  successRegister = false;
+  errorRegister = false;
+
+  successUpdate = false;
+  errorUpdate = false;
+
   constructor(private service: NicknameService, private fb: FormBuilder,
-              private lojistaService: LojistaService, private vendedorService: SellerService) {
+              private lojistaService: LojistaService, private vendedorService: SellerService,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -132,15 +141,20 @@ export class NicknameComponent implements OnInit, OnDestroy {
         this.subscription.push(this.service.createNickname(this.form.get('nickname')?.value.toLowerCase(),
           this.form.get('vendedor')?.value.toLowerCase(), this.form.get('lojista')?.value.toLowerCase())
           .subscribe(() => {
+            this.successRegister = true;
             this.form.reset();
-          }));
-        const nick: NicknameModel = {
-          nickname: this.form.get('nickname')?.value,
-          customerBy: this.form.get('vendedor')?.value.toLowerCase(),
-          lojista: this.form.get('lojista')?.value.toLowerCase()
-        }
-        this.nicknames.push(nick);
-        this.nicknames.sort(Sorter.dynamycSort("nickname"));
+              const nick: NicknameModel = {
+                nickname: this.form.get('nickname')?.value,
+                customerBy: this.form.get('vendedor')?.value.toLowerCase(),
+                lojista: this.form.get('lojista')?.value.toLowerCase()
+              }
+              this.nicknames.push(nick);
+              this.nicknames.sort(Sorter.dynamycSort("nickname"));
+          },
+            error => {
+              console.log(error);
+              this.errorRegister = true;
+            }));
       }
     }
   }
@@ -152,8 +166,13 @@ export class NicknameComponent implements OnInit, OnDestroy {
       this.subscription.push(this.service.editNickname(nickname?.nickname?.toLowerCase(), this.formEdit.get('editNickname')?.value?.toLowerCase(),
         this.formEdit.get('editVendedor')?.value?.toLowerCase(), this.formEdit.get('editLojista')?.value?.toLowerCase())
         .subscribe(() => {
+          this.successUpdate = true;
           this.formEdit.reset();
-        }));
+        },
+          error => {
+            console.log(error);
+            this.errorUpdate = true;
+          }));
       this.findAll();
     }
   }
@@ -171,11 +190,11 @@ export class NicknameComponent implements OnInit, OnDestroy {
       }));
   }
 
-  deleteNickname(nickname: string | undefined): void {
-    this.subscription.push(this.service.deleteNickname(nickname).subscribe(() => {
-    }));
-    const arr = this.nicknames.filter(s => s.nickname !== nickname);
-    this.nicknames = arr;
+  openModalToDelete(nickname: string | undefined): void {
+    let dialogRef = this.dialog.open(DialogAnimationComponent, {});
+    let instance = dialogRef.componentInstance;
+    instance.entityToBeDeleted = nickname;
+    instance.type = 'Nickname';
   }
 
   filterNickList(): NicknameModel[] {
@@ -258,5 +277,21 @@ export class NicknameComponent implements OnInit, OnDestroy {
 
   closeError(): void {
     this.error = false;
+  }
+
+  closeSuccessRegister(): void {
+    this.successRegister = false;
+  }
+
+  closeErrorRegister(): void {
+    this.errorRegister = false;
+  }
+
+  closeSuccessUpdate(): void {
+    this.successUpdate = false;
+  }
+
+  closeErrorUpdate(): void {
+    this.errorUpdate = false;
   }
 }

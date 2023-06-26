@@ -15,6 +15,30 @@
       <span class="span-style">Preço (PMS):</span>
       <input class="input-style margin-last" formControlName="price" placeholder="Preço do produto (somente números)">
 
+      <div class="div-flex-center">
+        <div *ngIf="successRegister" class="div-success">
+          <div>
+            <span class="span-white">Produto cadastrado com sucesso!</span>
+          </div>
+          <div class="div-pointer" (click)="closeSuccessRegister()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="div-flex-center">
+        <div *ngIf="errorRegister" class="div-error width">
+          <div>
+            <span class="span-white">Erro ao cadastrar um produto.</span>
+          </div>
+          <div class="div-pointer" (click)="closeErrorRegister()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
       <div class="div-center">
         <div (click)="cadastrarProduto()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
       </div>
@@ -99,13 +123,35 @@
                     <span class="span-edit">Deletar informações: </span>
                   </div>
                   <div>
-                    <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+                    <mat-icon (click)="openModalToDelete(produto.name)" matSuffix>delete</mat-icon>
                   </div>
                 </div>
               </div>
 
               <div class="div-left">
                 <div (click)="editarProduto(produto.name)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="successUpdate" class="div-success">
+                  <div>
+                    <span class="span-white">Produto atualizado com sucesso!</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeSuccessUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="errorUpdate" class="div-error width">
+                  <div>
+                    <span class="span-white">Erro ao atualizar um produto.</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeErrorUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>
@@ -149,13 +195,35 @@
               <span class="span-edit">Deletar informações: </span>
             </div>
             <div>
-              <mat-icon (click)="deleteProduto(produto.name)" matSuffix>delete</mat-icon>
+              <mat-icon (click)="openModalToDelete(produto.name)" matSuffix>delete</mat-icon>
             </div>
           </div>
         </div>
 
         <div class="div-left">
           <div (click)="editarProduto(produto.name)" [className]="validateEditForm()">Editar</div>
+        </div>
+
+        <div class="div-flex-center">
+          <div *ngIf="successUpdate" class="div-success">
+            <div>
+              <span class="span-white">Produto atualizado com sucesso!</span>
+            </div>
+            <div class="div-pointer" (click)="closeSuccessUpdate()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-flex-center">
+          <div *ngIf="errorUpdate" class="div-error width">
+            <div>
+              <span class="span-white">Erro ao atualizar um produto.</span>
+            </div>
+            <div class="div-pointer" (click)="closeErrorUpdate()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
         </div>
 
       </mat-expansion-panel>

@@ -28,8 +28,8 @@ export class ProductService {
       name,
       price
     };
-    // return this.http.post<void>(`http://localhost:9096/tropical/products`, request);
-    return this.http.post<void>(`https://tropical-ml-backend.herokuapp.com/tropical/products`, request);
+    return this.http.post<void>(`http://localhost:9096/tropical/products`, request);
+    // return this.http.post<void>(`https://tropical-ml-backend.herokuapp.com/tropical/products`, request);
   }
 
   public editProduct(nameEdit: string | undefined, name: string, price: string): Observable<void> {
@@ -37,8 +37,8 @@ export class ProductService {
       name,
       price
     };
-    // return this.http.put<void>(`http://localhost:9096/tropical/products/${nameEdit}`, request);
-    return this.http.put<void>(`https://tropical-ml-backend.herokuapp.com/tropical/products/${nameEdit}`, request);
+    return this.http.put<void>(`http://localhost:9096/tropical/products/${nameEdit}`, request);
+    // return this.http.put<void>(`https://tropical-ml-backend.herokuapp.com/tropical/products/${nameEdit}`, request);
   }
 
   public deleteProduct(name: string | undefined): Observable<void> {

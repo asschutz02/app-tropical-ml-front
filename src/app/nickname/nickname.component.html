@@ -40,6 +40,30 @@
         </mat-autocomplete>
       </mat-form-field>
 
+      <div class="div-flex-center">
+        <div *ngIf="successRegister" class="div-success width-success">
+          <div>
+            <span class="span-white">Nickname cadastrado com sucesso!</span>
+          </div>
+          <div class="div-pointer" (click)="closeSuccessRegister()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="div-flex-center">
+        <div *ngIf="errorRegister" class="div-error width">
+          <div>
+            <span class="span-white">Erro ao cadastrar um nickname.</span>
+          </div>
+          <div class="div-pointer" (click)="closeErrorRegister()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
       <div class="div-center">
         <div (click)="cadastrarNickname()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
       </div>
@@ -180,13 +204,35 @@
                       <span class="span-edit">Deletar informações: </span>
                     </div>
                     <div>
-                      <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                      <mat-icon (click)="openModalToDelete(nick.nickname)" matSuffix>delete</mat-icon>
                     </div>
                   </div>
                 </div>
 
                 <div class="div-left">
                   <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
+                </div>
+
+                <div class="div-flex-center">
+                  <div *ngIf="successUpdate" class="div-success width-success">
+                    <div>
+                      <span class="span-white">Nickname atualizado com sucesso!</span>
+                    </div>
+                    <div class="div-pointer" (click)="closeSuccessUpdate()">
+                      <span class="span-white span-font">X</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="div-flex-center">
+                  <div *ngIf="errorUpdate" class="div-error width">
+                    <div>
+                      <span class="span-white">Erro ao atualizar um nickname.</span>
+                    </div>
+                    <div class="div-pointer" (click)="closeErrorUpdate()">
+                      <span class="span-white span-font">X</span>
+                    </div>
+                  </div>
                 </div>
 
               </mat-expansion-panel>
@@ -254,13 +300,35 @@
                     <span class="span-edit">Deletar informações: </span>
                   </div>
                   <div>
-                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                    <mat-icon (click)="openModalToDelete(nick.nickname)" matSuffix>delete</mat-icon>
                   </div>
                 </div>
               </div>
 
               <div class="div-left">
                 <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="successUpdate" class="div-success width-success">
+                  <div>
+                    <span class="span-white">Nickname atualizado com sucesso!</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeSuccessUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="errorUpdate" class="div-error width">
+                  <div>
+                    <span class="span-white">Erro ao atualizar um nickname.</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeErrorUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>
@@ -328,13 +396,35 @@
                     <span class="span-edit">Deletar informações: </span>
                   </div>
                   <div>
-                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                    <mat-icon (click)="openModalToDelete(nick.nickname)" matSuffix>delete</mat-icon>
                   </div>
                 </div>
               </div>
 
               <div class="div-left">
                 <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="successUpdate" class="div-success width-success">
+                  <div>
+                    <span class="span-white">Nickname atualizado com sucesso!</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeSuccessUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="errorUpdate" class="div-error width">
+                  <div>
+                    <span class="span-white">Erro ao atualizar um nickname.</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeErrorUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>
@@ -402,13 +492,35 @@
                     <span class="span-edit">Deletar informações: </span>
                   </div>
                   <div>
-                    <mat-icon (click)="deleteNickname(nick.nickname)" matSuffix>delete</mat-icon>
+                    <mat-icon (click)="openModalToDelete(nick.nickname)" matSuffix>delete</mat-icon>
                   </div>
                 </div>
               </div>
 
               <div class="div-left">
                 <div (click)="editarNickname(nick)" [className]="validateEditForm()">Editar</div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="successUpdate" class="div-success width-success">
+                  <div>
+                    <span class="span-white">Nickname atualizado com sucesso!</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeSuccessUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="errorUpdate" class="div-error width">
+                  <div>
+                    <span class="span-white">Erro ao atualizar um nickname.</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeErrorUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>

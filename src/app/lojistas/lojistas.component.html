@@ -12,8 +12,32 @@
 
       <br>
 
+      <div class="div-flex-center">
+        <div *ngIf="success" class="div-success">
+          <div>
+            <span class="span-white">Lojista cadastrado com sucesso!</span>
+          </div>
+          <div class="div-pointer" (click)="closeSuccess()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="div-flex-center">
+        <div *ngIf="error" class="div-error width">
+          <div>
+            <span class="span-white">Erro ao cadastrar um lojista.</span>
+          </div>
+          <div class="div-pointer" (click)="closeError()">
+            <span class="span-white span-font">X</span>
+          </div>
+        </div>
+      </div>
+
+      <br>
+
       <div class="div-center">
-        <div (click)="cadastrarVendedor()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
+        <div (click)="cadastrarLojista()" [className]="form.valid ? 'div-button' : 'div-button opacity'">Cadastrar</div>
       </div>
 
     </div>
@@ -61,13 +85,35 @@
                     <span class="span-edit">Deletar informações: </span>
                   </div>
                   <div>
-                    <mat-icon (click)="deleteVendedor(lojista.lojista)" matSuffix>delete</mat-icon>
+                    <mat-icon (click)="openModalToDelete(lojista.lojista)" matSuffix>delete</mat-icon>
                   </div>
                 </div>
               </div>
 
               <div class="div-left">
-                <div (click)="editarVendedor(lojista.lojista)" [className]="formEdit.valid ? 'div-button' : 'div-button opacity'">Editar</div>
+                <div (click)="editarLojista(lojista.lojista)" [className]="formEdit.valid ? 'div-button' : 'div-button opacity'">Editar</div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="successUpdate" class="div-success">
+                  <div>
+                    <span class="span-white">Lojista atualizado com sucesso!</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeSuccessUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="div-flex-center">
+                <div *ngIf="errorUpdate" class="div-error width">
+                  <div>
+                    <span class="span-white">Erro ao atualizar um lojista.</span>
+                  </div>
+                  <div class="div-pointer" (click)="closeErrorUpdate()">
+                    <span class="span-white span-font">X</span>
+                  </div>
+                </div>
               </div>
 
             </mat-expansion-panel>
@@ -105,13 +151,35 @@
               <span class="span-edit">Deletar informações: </span>
             </div>
             <div>
-              <mat-icon (click)="deleteVendedor(lojista.lojista)" matSuffix>delete</mat-icon>
+              <mat-icon (click)="openModalToDelete(lojista.lojista)" matSuffix>delete</mat-icon>
             </div>
           </div>
         </div>
 
         <div class="div-left">
-          <div (click)="editarVendedor(lojista.lojista)" [className]="formEdit.valid ? 'div-button' : 'div-button opacity'">Editar</div>
+          <div (click)="editarLojista(lojista.lojista)" [className]="formEdit.valid ? 'div-button' : 'div-button opacity'">Editar</div>
+        </div>
+
+        <div class="div-flex-center">
+          <div *ngIf="successUpdate" class="div-success">
+            <div>
+              <span class="span-white">Lojista atualizado com sucesso!</span>
+            </div>
+            <div class="div-pointer" (click)="closeSuccessUpdate()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="div-flex-center">
+          <div *ngIf="errorUpdate" class="div-error width">
+            <div>
+              <span class="span-white">Erro ao atualizar um lojista.</span>
+            </div>
+            <div class="div-pointer" (click)="closeErrorUpdate()">
+              <span class="span-white span-font">X</span>
+            </div>
+          </div>
         </div>
 
       </mat-expansion-panel>

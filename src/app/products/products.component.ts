@@ -6,6 +6,8 @@ import localePt from '@angular/common/locales/pt';
 import {ProductService} from "./service/product-service";
 import {Subscription} from "rxjs";
 import {Sorter} from "../helper/sorter";
+import {DialogAnimationComponent} from "../shared-modal/modal-deletion/dialog-animation/dialog-animation.component";
+import {MatDialog} from "@angular/material/dialog";
 
 @Component({
   selector: 'app-products',
@@ -38,7 +40,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     price: new FormControl(null, [Validators.required]),
   });
 
-  constructor(private service: ProductService, private fb: FormBuilder) {
+  successRegister = false;
+  errorRegister = false;
+
+  successUpdate = false;
+  errorUpdate = false;
+
+  constructor(private service: ProductService, private fb: FormBuilder, private dialog: MatDialog) {
   }
 
   ngOnDestroy(): void {
@@ -65,15 +73,25 @@ export class ProductsComponent implements OnInit, OnDestroy {
           let price = priceString.replace(',', '.');
           this.subscription.push(
             this.service.createProduct(this.form.get('name')?.value.toLowerCase(), price).subscribe(() => {
+              this.successRegister = true;
               this.findAll();
-            }));
+            },
+              error => {
+                console.log(error);
+                this.errorRegister = true;
+              }));
           this.form.reset();
         } else {
           this.subscription.push(this.service.createProduct
           (this.form.get('name')?.value.toLowerCase(), this.form.get('price')?.value).subscribe(() => {
+            this.successRegister = true;
             this.findAll();
             this.form.reset();
-          }));
+          },
+            error => {
+              console.log(error);
+              this.errorRegister = true;
+            }));
         }
       }
     }
@@ -87,22 +105,37 @@ export class ProductsComponent implements OnInit, OnDestroy {
           let price = priceString.replace(',', '.');
           this.subscription.push(
             this.service.editProduct(nameEdit?.toLowerCase(), this.formEdit.get('editName')?.value?.toLowerCase(), price).subscribe(() => {
+              this.successUpdate = true;
               this.findAll();
-            }));
+            },
+              error => {
+                console.log(error);
+                this.errorUpdate = true;
+              }));
           this.formEdit.reset();
         } else {
           this.subscription.push(this.service.editProduct(nameEdit?.toLowerCase(),
             this.formEdit.get('editName')?.value?.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
-            this.formEdit.reset();
+              this.successUpdate = true;
+              this.formEdit.reset();
             this.findAll();
-          }));
+          },
+            error => {
+              console.log(error);
+              this.errorUpdate = true;
+            }));
         }
       } else {
         this.subscription.push(this.service.editProduct(nameEdit?.toLowerCase(),
           this.formEdit.get('editName')?.value?.toLowerCase(), this.formEdit.get('editPrice')?.value).subscribe(() => {
-          this.formEdit.reset();
+            this.successUpdate = true;
+            this.formEdit.reset();
           this.findAll();
-        }));
+        },
+          error => {
+            console.log(error);
+            this.errorUpdate = true;
+          }));
       }
     }
   }
@@ -118,12 +151,6 @@ export class ProductsComponent implements OnInit, OnDestroy {
         this.loading = false;
         this.error = true;
       }));
-  }
-
-  deleteProduto(name: string | undefined): void {
-    this.subscription.push(this.service.deleteProduct(name).subscribe(() => {
-      this.findAll();
-    }));
   }
 
   filterList(): ProductModel[] {
@@ -153,6 +180,13 @@ export class ProductsComponent implements OnInit, OnDestroy {
     }
   }
 
+  openModalToDelete(produto: string | undefined): void {
+    let dialogRef = this.dialog.open(DialogAnimationComponent, {});
+    let instance = dialogRef.componentInstance;
+    instance.entityToBeDeleted = produto;
+    instance.type = 'Produto';
+  }
+
   setAlreadyState(): void {
     this.alreadyExists = false;
   }
@@ -163,5 +197,21 @@ export class ProductsComponent implements OnInit, OnDestroy {
 
   closeError(): void {
     this.error = false;
+  }
+
+  closeSuccessRegister(): void {
+    this.successRegister = false;
+  }
+
+  closeErrorRegister(): void {
+    this.errorRegister = false;
+  }
+
+  closeSuccessUpdate(): void {
+    this.successUpdate = false;
+  }
+
+  closeErrorUpdate(): void {
+    this.errorUpdate = false;
   }
 }

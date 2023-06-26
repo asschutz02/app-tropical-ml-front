@@ -1,0 +1,41 @@
+<div class="container-dialog">
+  <div mat-dialog-close class="div-pointer content-end">
+    <span class="span-black span-font">X</span>
+  </div>
+  <div class="title">
+    <h3 class="text-bold">Deletar {{ type }}</h3>
+  </div>
+  <div class="title-question">
+    Gostaria de deletar o {{ type?.toLowerCase() }} '{{ entityToBeDeleted }}'?
+  </div>
+  <div class="div-buttons">
+    <button mat-button mat-dialog-close>Não</button>
+    <button mat-button cdkFocusInitial (click)="deletarEntidade()" >Sim</button>
+  </div>
+
+  <div class="title">
+    <div *ngIf="success" class="div-success">
+      <div>
+        <span class="span-white">{{ type }} deletado com sucesso!</span>
+      </div>
+      <div class="div-pointer" (click)="closeSuccess()">
+        <span class="span-white span-font">X</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="title">
+    <div *ngIf="error" class="div-error width">
+      <div *ngIf="type == 'Lojista'">
+        <span class="span-white">O lojista '{{ entityToBeDeleted }}' está relacionado à um nickname.</span>
+      </div>
+      <div *ngIf="type !== 'Lojista'">
+        <span class="span-white">Houve um erro ao deletar o {{ type?.toLowerCase() }} '{{ entityToBeDeleted }}'.</span>
+      </div>
+      <div class="div-pointer" (click)="closeError()">
+        <span class="span-white span-font">X</span>
+      </div>
+    </div>
+  </div>
+</div>
+

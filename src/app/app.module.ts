@@ -30,6 +30,8 @@ import { LojistasComponent } from './lojistas/lojistas.component';
 import {LojistaService} from "./lojistas/service/lojista-service";
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from "@angular/material/checkbox";
+import { ModalDeletionComponent } from './shared-modal/modal-deletion/modal-deletion.component';
+import { DialogAnimationComponent } from './shared-modal/modal-deletion/dialog-animation/dialog-animation.component';
 
 const maskConfig: Partial<IConfig> = {
   validation: false,
@@ -46,7 +48,9 @@ const maskConfig: Partial<IConfig> = {
     ProductsComponent,
     SellersComponent,
     LojistasComponent,
-    RelatorioComponent
+    RelatorioComponent,
+    ModalDeletionComponent,
+    DialogAnimationComponent
   ],
   imports: [
     BrowserModule,

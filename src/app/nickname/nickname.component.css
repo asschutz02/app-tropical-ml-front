@@ -191,6 +191,10 @@
   border-radius: 2px
 }
 
+.width-success {
+  width: 220px !important;
+}
+
 .width {
   width: 240px !important;
 }
@@ -222,4 +226,9 @@
   display: flex;
   justify-content: center;
   margin-top: -20px;
+}
+
+.div-flex-center {
+  display: flex;
+  justify-content: center;
 }

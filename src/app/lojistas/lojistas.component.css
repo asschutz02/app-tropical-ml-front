@@ -120,3 +120,53 @@
   justify-content: center;
   margin-top: 20px;
 }
+
+.div-success {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 10px;
+  padding-right: 10px;
+  align-items: center;
+  background: green;
+  width: 195px;
+  margin-top: 10px;
+  height: 25px;
+  border-radius: 2px
+}
+
+.div-flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.width {
+  width: 240px !important;
+}
+
+.span-white {
+  color: white;
+  font-weight: 300;
+  font-size: 12px;
+}
+
+.span-font {
+  font-size: 15px;
+}
+
+.div-pointer {
+  cursor: pointer;
+}
+
+.div-error {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-left: 25px;
+  padding-right: 25px;
+  align-items: center;
+  background: red;
+  margin-top: 8px;
+  height: 25px;
+  border-radius: 2px
+}
