@@ -104,5 +104,8 @@
       }
     }
   },
-  "defaultProject": "tropical-front"
+  "defaultProject": "tropical-front",
+  "cli": {
+    "analytics": "04befd43-b5bc-4be5-b6e2-e8af6aa28de1"
+  }
 }

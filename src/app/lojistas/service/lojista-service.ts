@@ -27,11 +27,18 @@ export class LojistaService {
     const request = {
       lojista: lojista.toLowerCase()
     };
+
+    if (lojistaEdit!.includes('/')) {
+      lojistaEdit = lojistaEdit!.replace('/', '!');
+    }
     // return this.http.put<void>(`http://localhost:9096/tropical/lojista/${lojistaEdit}`, request);
     return this.http.put<void>(`https://tropical-ml-backend.herokuapp.com/tropical/lojista/${lojistaEdit}`, request);
   }
 
   public deleteLojista(lojista: string | undefined): Observable<void> {
+    if (lojista!.includes('/')) {
+      lojista = lojista!.replace('/', '!');
+    }
     // return this.http.delete<void>(`http://localhost:9096/tropical/lojista/${lojista}`);
     return this.http.delete<void>(`https://tropical-ml-backend.herokuapp.com/tropical/lojista/${lojista}`);
   }
