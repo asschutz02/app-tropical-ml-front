@@ -6,7 +6,7 @@ import {ProductModel} from "../products/model/product.model";
 import {registerLocaleData} from "@angular/common";
 import localePt from "@angular/common/locales/pt";
 import {ThemePalette} from "@angular/material/core";
-import {FormBuilder, FormControl} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl} from "@angular/forms";
 import {HeaderService} from "../header/service/header-service";
 
 @Component({
@@ -16,7 +16,7 @@ import {HeaderService} from "../header/service/header-service";
 })
 export class RelatorioComponent implements OnInit, OnDestroy {
 
-  constructor(private service: ProductService, private fb: FormBuilder, private headerService: HeaderService) {}
+  constructor(private service: ProductService, private fb: UntypedFormBuilder, private headerService: HeaderService) {}
 
   filteredList: ProductModel[] = [];
   color: ThemePalette = 'primary';
@@ -29,7 +29,7 @@ export class RelatorioComponent implements OnInit, OnDestroy {
   error = false;
 
   form = this.fb.group({
-    filter: new FormControl(null,null),
+    filter: new UntypedFormControl(null,null),
   });
 
   ngOnInit(): void {

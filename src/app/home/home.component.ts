@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {HomeService} from "./service/home-service";
 
@@ -17,11 +17,11 @@ export class HomeComponent implements OnInit, OnDestroy {
   subscription: Subscription[] = [];
 
   form = this.fb.group({
-    name: new FormControl(null, Validators.required),
-    price: new FormControl(null, Validators.required)
+    name: new UntypedFormControl(null, Validators.required),
+    price: new UntypedFormControl(null, Validators.required)
   });
 
-  constructor(private fb: FormBuilder, private service: HomeService) { }
+  constructor(private fb: UntypedFormBuilder, private service: HomeService) { }
 
   ngOnInit(): void {
   }

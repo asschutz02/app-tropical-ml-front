@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, Validators} from "@angular/forms";
 import {LojistaService} from "./service/lojista-service";
 import {LojistaModel} from "./model/lojista.model";
 import {Sorter} from "../helper/sorter";
@@ -26,12 +26,12 @@ export class LojistasComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   formEdit = this.fb.group({
-    editLojista: new FormControl(null,[Validators.required])
+    editLojista: new UntypedFormControl(null,[Validators.required])
   });
 
   form = this.fb.group({
-    filter: new FormControl(null,null),
-    lojista: new FormControl(null,[Validators.required]),
+    filter: new UntypedFormControl(null,null),
+    lojista: new UntypedFormControl(null,[Validators.required]),
   });
 
   success = false;
@@ -41,7 +41,7 @@ export class LojistasComponent implements OnInit, OnDestroy {
   errorUpdate = false;
 
   constructor(private store: Store<AppState>, private dialog: MatDialog,
-              private service: LojistaService, private fb: FormBuilder) { }
+              private service: LojistaService, private fb: UntypedFormBuilder) { }
 
   ngOnInit(): void {
     this.findAll();

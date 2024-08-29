@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {NicknameModel} from "./model/nickname.model";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, Validators} from "@angular/forms";
 import {NicknameService} from "./service/nickname-service";
 import {map, Observable, startWith, Subscription} from "rxjs";
 import {LojistaService} from "../lojistas/service/lojista-service";
@@ -43,18 +43,18 @@ export class NicknameComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   formEdit = this.fb.group({
-    editNickname: new FormControl(null, null),
-    editVendedor: new FormControl(null, null),
-    editLojista: new FormControl(null, null)
+    editNickname: new UntypedFormControl(null, null),
+    editVendedor: new UntypedFormControl(null, null),
+    editLojista: new UntypedFormControl(null, null)
   });
 
   form = this.fb.group({
-    filterNick: new FormControl(null, null),
-    filterLojista: new FormControl(null, null),
-    filterVendedor: new FormControl(null, null),
-    nickname: new FormControl(null, [Validators.required]),
-    lojista: new FormControl(null, [Validators.required]),
-    vendedor: new FormControl(null, [Validators.required])
+    filterNick: new UntypedFormControl(null, null),
+    filterLojista: new UntypedFormControl(null, null),
+    filterVendedor: new UntypedFormControl(null, null),
+    nickname: new UntypedFormControl(null, [Validators.required]),
+    lojista: new UntypedFormControl(null, [Validators.required]),
+    vendedor: new UntypedFormControl(null, [Validators.required])
   });
 
   successRegister = false;
@@ -63,7 +63,7 @@ export class NicknameComponent implements OnInit, OnDestroy {
   successUpdate = false;
   errorUpdate = false;
 
-  constructor(private service: NicknameService, private fb: FormBuilder,
+  constructor(private service: NicknameService, private fb: UntypedFormBuilder,
               private lojistaService: LojistaService, private vendedorService: SellerService,
               private dialog: MatDialog) {
   }

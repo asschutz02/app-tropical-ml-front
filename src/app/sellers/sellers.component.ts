@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {SellerModel} from "./model/seller.model";
 import {SellerService} from "./service/seller-service";
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, Validators} from "@angular/forms";
 import {Subscription} from "rxjs";
 import {Sorter} from "../helper/sorter";
 import {MatDialog} from "@angular/material/dialog";
@@ -23,12 +23,12 @@ export class SellersComponent implements OnInit, OnDestroy {
   alreadyExists = false;
 
   formEdit = this.fb.group({
-    editName: new FormControl(null,[Validators.required])
+    editName: new UntypedFormControl(null,[Validators.required])
   });
 
   form = this.fb.group({
-    filter: new FormControl(null,null),
-    name: new FormControl(null,[Validators.required]),
+    filter: new UntypedFormControl(null,null),
+    name: new UntypedFormControl(null,[Validators.required]),
   });
 
   success = false;
@@ -37,7 +37,7 @@ export class SellersComponent implements OnInit, OnDestroy {
   successUpdate = false;
   errorUpdate = false;
 
-  constructor(private service: SellerService, private fb: FormBuilder, private dialog: MatDialog) { }
+  constructor(private service: SellerService, private fb: UntypedFormBuilder, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.findAll();

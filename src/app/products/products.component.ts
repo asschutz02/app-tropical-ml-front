@@ -1,5 +1,5 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, Validators} from "@angular/forms";
+import {UntypedFormBuilder, UntypedFormControl, Validators} from "@angular/forms";
 import {ProductModel} from "./model/product.model";
 import {registerLocaleData} from "@angular/common";
 import localePt from '@angular/common/locales/pt';
@@ -30,14 +30,14 @@ export class ProductsComponent implements OnInit, OnDestroy {
   panelOpenState = false;
 
   formEdit = this.fb.group({
-    editName: new FormControl(null, null),
-    editPrice: new FormControl(null, null)
+    editName: new UntypedFormControl(null, null),
+    editPrice: new UntypedFormControl(null, null)
   })
 
   form = this.fb.group({
-    filter: new FormControl(null, null),
-    name: new FormControl(null, [Validators.required]),
-    price: new FormControl(null, [Validators.required]),
+    filter: new UntypedFormControl(null, null),
+    name: new UntypedFormControl(null, [Validators.required]),
+    price: new UntypedFormControl(null, [Validators.required]),
   });
 
   successRegister = false;
@@ -46,7 +46,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   successUpdate = false;
   errorUpdate = false;
 
-  constructor(private service: ProductService, private fb: FormBuilder, private dialog: MatDialog) {
+  constructor(private service: ProductService, private fb: UntypedFormBuilder, private dialog: MatDialog) {
   }
 
   ngOnDestroy(): void {
