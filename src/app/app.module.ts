@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {CUSTOM_ELEMENTS_SCHEMA, NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
 import {AppRoutingModule} from './app-routing.module';
@@ -25,7 +25,7 @@ import {ProductService} from "./products/service/product-service";
 import {SellerService} from "./sellers/service/seller-service";
 import {HeaderService} from "./header/service/header-service";
 import {HomeService} from "./home/service/home-service";
-import {IConfig, NgxMaskModule} from "ngx-mask";
+// import {IConfig, NgxMaskModule} from "ngx-mask";
 import { LojistasComponent } from './lojistas/lojistas.component';
 import {LojistaService} from "./lojistas/service/lojista-service";
 import { RelatorioComponent } from './relatorio/relatorio.component';
@@ -33,9 +33,9 @@ import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from "@angular/
 import { ModalDeletionComponent } from './shared-modal/modal-deletion/modal-deletion.component';
 import { DialogAnimationComponent } from './shared-modal/modal-deletion/dialog-animation/dialog-animation.component';
 
-const maskConfig: Partial<IConfig> = {
-  validation: false,
-};
+// const maskConfig: Partial<IConfig> = {
+//   validation: false,
+// };
 
 @NgModule({
   declarations: [
@@ -69,7 +69,7 @@ const maskConfig: Partial<IConfig> = {
         strictActionImmutability: false,
       },
     }),
-    NgxMaskModule.forRoot(maskConfig),
+    // NgxMaskModule.forRoot(maskConfig),
   ],
   providers: [
     NicknameService,
