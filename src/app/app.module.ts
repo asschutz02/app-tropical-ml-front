@@ -32,6 +32,7 @@ import { RelatorioComponent } from './relatorio/relatorio.component';
 import {MAT_CHECKBOX_DEFAULT_OPTIONS, MatCheckboxDefaultOptions} from "@angular/material/checkbox";
 import { ModalDeletionComponent } from './shared-modal/modal-deletion/modal-deletion.component';
 import { DialogAnimationComponent } from './shared-modal/modal-deletion/dialog-animation/dialog-animation.component';
+import {ColorPickerModule} from "ngx-color-picker";
 
 // const maskConfig: Partial<IConfig> = {
 //   validation: false,
@@ -58,6 +59,7 @@ import { DialogAnimationComponent } from './shared-modal/modal-deletion/dialog-a
     AppRoutingModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
+    ColorPickerModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
