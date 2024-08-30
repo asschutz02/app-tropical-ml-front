@@ -34,6 +34,7 @@
     "@angular/core": "16.2.12",
     "@angular/forms": "16.2.12",
     "@angular/material": "^16.2.14",
+    "@angular-material-components/color-picker": "^16.0.1",
     "@angular/platform-browser": "16.2.12",
     "@angular/platform-browser-dynamic": "16.2.12",
     "@angular/router": "16.2.12",
