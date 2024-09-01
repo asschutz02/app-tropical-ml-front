@@ -29,15 +29,16 @@ export class LojistaService {
     };
 
     if (lojistaEdit!.includes('/')) {
-      lojistaEdit = lojistaEdit!.replace('/', '!');
+      lojistaEdit = lojistaEdit!.replace(/\//g, '!');
     }
+
     // return this.http.put<void>(`http://localhost:9096/tropical/lojista/${lojistaEdit}`, request);
     return this.http.put<void>(`https://tropical-ml-backend.herokuapp.com/tropical/lojista/${lojistaEdit}`, request);
   }
 
   public deleteLojista(lojista: string | undefined): Observable<void> {
     if (lojista!.includes('/')) {
-      lojista = lojista!.replace('/', '!');
+      lojista = lojista!.replace(/\//g, '!');
     }
     // return this.http.delete<void>(`http://localhost:9096/tropical/lojista/${lojista}`);
     return this.http.delete<void>(`https://tropical-ml-backend.herokuapp.com/tropical/lojista/${lojista}`);
