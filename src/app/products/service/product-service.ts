@@ -37,6 +37,9 @@ export class ProductService {
       name,
       price
     };
+    if (nameEdit?.includes('%')) {
+      nameEdit = nameEdit.replace("%", "!");
+    }
     // return this.http.put<void>(`http://localhost:9096/tropical/products/${nameEdit}`, request);
     return this.http.put<void>(`https://tropical-ml-backend.herokuapp.com/tropical/products/${nameEdit}`, request);
   }
